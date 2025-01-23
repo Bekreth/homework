@@ -17,3 +17,6 @@ build/main: ${SOURCE_FILE} | build/
 
 run: build/main
 	$<
+
+debug: build/main
+	gdb $<

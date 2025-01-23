@@ -7,6 +7,8 @@
 PolarCoordinates convert_to_polar(RectangularCoordinates input) {
 	PolarCoordinates output;
 	output.radius = sqrt(pow(input.x, 2) + pow(input.y, 2));
+	Quadrant quadrant = determine_quadrant(input);
+
 	if (input.x == 0) {
 		if (input.y > 0) {
 			output.angle = 90.0;
@@ -16,14 +18,51 @@ PolarCoordinates convert_to_polar(RectangularCoordinates input) {
 			output.angle = 0.0;
 		}
 	} else {
-		double degrees = atan(input.y / input.x) * (180.0 / M_PI);
-		output.angle = fmod(degrees, 180.0);
+		double positive_x = input.x > 0 ? input.x : -1 * input.x;
+		double positive_y = input.y > 0 ? input.y : -1 * input.y;
+		output.angle = atan(positive_y / positive_x) * (180.0 / M_PI);
+		switch (quadrant) {
+			case Q1:
+				break;
+			case Q2:
+				output.angle += 90.0;
+				if (input.y == 0) {
+					output.angle += 90.0;
+				}
+				break;
+			case Q3:
+				output.angle += 90.0;
+				output.angle *= -1;
+				break;
+			case Q4:
+				output.angle *= -1;
+				break;
+		}
 	}
 	return output;
 }
 
-RectangularCoordinates convert_to_rectangular(PolarCoordinates input) {
-	RectangularCoordinates output;
+Quadrant determine_quadrant(RectangularCoordinates input) {
+	Quadrant output = Q1;
+	if (input.x == 0) {
+		if (input.y >= 0) {
+			output = Q1;
+		} else {
+			output = Q3;
+		}
+	} else if (input.x > 0) {
+		if (input.y >= 0) {
+			output = Q1;
+		} else {
+			output = Q4;
+		}
+	} else {
+		if (input.y >= 0) {
+			output = Q2;
+		} else {
+			output = Q3;
+		}
+	}
 	return output;
 }
 

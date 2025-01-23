@@ -11,8 +11,15 @@ typedef struct PolarCoordinates {
 	double angle;
 } PolarCoordinates;
 
+typedef enum Quadrant {
+	Q1 = 0,
+	Q2 = 1,
+	Q3 = 2,
+	Q4 = 3,
+} Quadrant;
+
 PolarCoordinates convert_to_polar(RectangularCoordinates);
-RectangularCoordinates convert_to_rectangular(PolarCoordinates);
+Quadrant determine_quadrant(RectangularCoordinates input);
 void print_coodrinates(RectangularCoordinates, PolarCoordinates);
 
 

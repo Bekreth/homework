@@ -1,13 +1,20 @@
-SOURCES:=$(shell find -type f -iname "*.asm" | sed 's|\.\/\(.*\).asm|build\/\1.o|')
+SOURCE_FILE:=$(shell find src -type f | \
+	grep -E '*.asm$$' | \
+	sed -r 's|src|build|' | \
+	sed -r 's|\.asm|\.o|')
+
+clean:
+	rm build/*
+
 build/:
 	@mkdir $@
 
-build/%.o: %.asm Makefile | build/
+build/%.o: src/%.asm Makefile | build/
 	as -g -o $@ $<
 
-build/caller: ${SOURCES} | build/
+build/main: ${SOURCE_FILE} | build/
 	ld -o $@ $^
 	@chmod 755 $@
 
-run: build/caller
-	@$<; echo "\nOutput: " $$?
+run: build/main
+	@$<

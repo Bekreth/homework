@@ -3,9 +3,6 @@ SOURCE_FILE:=$(shell find src -type f | \
 	sed -r 's|src|build|' | \
 	sed -r 's|\.c|\.o|')
 
-E:
-	echo $(SOURCE_FILE)
-
 clean:
 	rm build/*
 

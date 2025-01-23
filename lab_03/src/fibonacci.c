@@ -4,9 +4,13 @@
 #include "fibonacci.h"
 
 void fibonacci(int iterations) {
+	if (iterations > FIBONACCI_MAX) {
+		printf("%d is too large.  Please keep your input to less than %d", iterations, FIBONACCI_MAX);
+		return;
+	}
 	char** star_counter;
 	star_counter = (char**)malloc((iterations-1) * sizeof(char*));
-	int previous = 0;
+	int previous_step = 0;
 	int output = 0;
 	int next_step = 1;
 	for (int i = 0; i < iterations; i++) {
@@ -21,9 +25,9 @@ void fibonacci(int iterations) {
 				star_counter[i-1][j]= '*';
 			}
 		}
-		previous = output;
+		previous_step = output;
 		output += next_step;
-		next_step = previous;
+		next_step = previous_step;
 	}
 	printf("\n\n");
 	for (int i = 0; i < iterations-1; i++) {
@@ -32,4 +36,5 @@ void fibonacci(int iterations) {
 		//free(star_counter[i]);
 	}
 	free(star_counter);
+	return;
 }

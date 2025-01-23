@@ -1,15 +1,18 @@
-SOURCE_FILE:=$(shell find -type f | \
+SOURCE_FILE:=$(shell find src -type f | \
 	grep -E '*.c$$' | \
-	sed -r 's/\./build/' | \
-	sed -r 's/\.c/\.o/')
+	sed -r 's|src|build|' | \
+	sed -r 's|\.c|\.o|')
 
 E:
 	echo $(SOURCE_FILE)
 
+clean:
+	rm build/*
+
 build/:
 	@mkdir $@
 
-build/%.o: %.c Makefile| build/
+build/%.o: src/%.c Makefile| build/
 	gcc -g -c -o $@ $<
 
 build/main: ${SOURCE_FILE} | build/

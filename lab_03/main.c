@@ -2,20 +2,14 @@
 
 #include "error_code.h"
 #include "factorial.h"
+#include "coordinate.h"
 
-typedef enum PolarPicker {
-	Radius = 0,
-	Angle = 1
-} PolarPicker ;
 
 unsigned long fibonacci(int iterations);
 
-// Returns _EITHER_ Radius or Angle
-float rectToPolar(int, int, PolarPicker);
-
 int main() {
 	int factorial_input;
-	while (1) {
+	while (0) {
 		printf("Enter a number: ");
 		scanf("%d", &factorial_input);
 		if (factorial_input == -99) {
@@ -29,10 +23,14 @@ int main() {
 		printf("%d! = %ld\n", factorial_input, factorial.value);
 	}
 
-	printf("%ld\n", fibonacci(10));
-}
-
-float rectToPolar(int, int, PolarPicker) {
+	RectangularCoordinates input_coordinates;
+	input_coordinates.x = 0;
+	input_coordinates.y = 0;
+	scanf("%d,%d", &input_coordinates.x, &input_coordinates.y);
+	printf("data %d  - %d\n", input_coordinates.x, input_coordinates.y);
+	PolarCoordinates output_coordinates = convert_to_polar(input_coordinates);
+	print_coodrinates(input_coordinates, output_coordinates);
+	//printf("%ld\n", fibonacci(10));
 }
 
 unsigned long fibonacci(int iterations) {

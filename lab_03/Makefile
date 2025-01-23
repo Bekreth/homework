@@ -13,4 +13,7 @@ build/%.o: %.c Makefile| build/
 	gcc -g -c -o $@ $<
 
 build/main: ${SOURCE_FILE} | build/
-	gcc -o $@ $(SOURCE_FILE)
+	gcc -o $@ $(SOURCE_FILE) -lm 
+
+run: build/main
+	$<

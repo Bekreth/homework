@@ -1,3 +1,19 @@
+/******************************************************************************
+ * * ROBT 1270 C Programing
+ * * LAB #3
+ * *
+ * * Purpose: Demonstrate I understand C
+ * *
+ * * Author: Christopher Hughes
+ * * ROBT1270, Set B
+ * *
+ * * Declaration:
+ * * I wrore this program
+ * *
+ * * Date Created: 25.01.22
+ * *
+ * ******************************************************************************/
+
 #include <stdio.h>
 
 #include "main.h"

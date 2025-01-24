@@ -32,8 +32,7 @@ void fibonacci(int iterations) {
 	printf("\n\n");
 	for (int i = 0; i < iterations-1; i++) {
 		printf("%s\n", star_counter[i]);
-		// TODO: Sort out WTF is happening here
-		//free(star_counter[i]);
+		free(star_counter[i]);
 	}
 	free(star_counter);
 	return;

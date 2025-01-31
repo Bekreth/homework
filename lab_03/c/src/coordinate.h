@@ -2,8 +2,8 @@
 #define COORDINATE_H
 
 typedef struct RectangularCoordinates {
-	int x;
-	int y;
+	double x;
+	double y;
 } RectangularCoordinates;
 
 typedef struct PolarCoordinates {
@@ -19,8 +19,10 @@ typedef enum Quadrant {
 } Quadrant;
 
 PolarCoordinates convert_to_polar(RectangularCoordinates);
+RectangularCoordinates convert_to_rectangular(PolarCoordinates);
 Quadrant determine_quadrant(RectangularCoordinates input);
-void print_coodrinates(RectangularCoordinates, PolarCoordinates);
+void print_rectangular_coodrinates(RectangularCoordinates);
+void print_polar_coodrinates(PolarCoordinates);
 
 
 #endif

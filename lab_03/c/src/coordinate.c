@@ -3,7 +3,6 @@
 
 #include "coordinate.h"
 
-// TODO: All four quadrents will need to be sorted out individually 0_o
 PolarCoordinates convert_to_polar(RectangularCoordinates input) {
 	PolarCoordinates output;
 	output.radius = sqrt(pow(input.x, 2) + pow(input.y, 2));
@@ -18,8 +17,8 @@ PolarCoordinates convert_to_polar(RectangularCoordinates input) {
 			output.angle = 0.0;
 		}
 	} else {
-		double positive_x = input.x > 0 ? input.x : -1 * input.x;
-		double positive_y = input.y > 0 ? input.y : -1 * input.y;
+		double positive_x = input.x > 0.0 ? input.x : -1.0 * input.x;
+		double positive_y = input.y > 0.0 ? input.y : -1.0 * input.y;
 		output.angle = atan(positive_y / positive_x) * (180.0 / M_PI);
 		switch (quadrant) {
 			case Q1:
@@ -39,6 +38,13 @@ PolarCoordinates convert_to_polar(RectangularCoordinates input) {
 				break;
 		}
 	}
+	return output;
+}
+
+RectangularCoordinates convert_to_rectangular(PolarCoordinates input) {
+	RectangularCoordinates output;
+	output.x = input.radius * cos(input.angle / (180.0 / M_PI));
+	output.y = input.radius * sin(input.angle / (180.0 / M_PI));
 	return output;
 }
 
@@ -66,20 +72,26 @@ Quadrant determine_quadrant(RectangularCoordinates input) {
 	return output;
 }
 
-void print_coodrinates(
-		RectangularCoordinates rectangular_coordinates, 
-		PolarCoordinates polar_coordinates
-	) {
-	char y_sign = rectangular_coordinates.y >= 0 ? '+' : '-';
+void print_polar_coodrinates(
+	PolarCoordinates polar_coordinates
+) {
 	char theta_sign = polar_coordinates.angle >= 0 ? '+' : '-';
 	printf(
-		"%d %c %di = %.2f /_ %c%.2f\n",
-		rectangular_coordinates.x,
-		y_sign,
-		rectangular_coordinates.y < 0 ? -1 * rectangular_coordinates.y : rectangular_coordinates.y,
-
+		"%.2f /_ %c%.2f",
 		polar_coordinates.radius,
 		theta_sign,
 		polar_coordinates.angle < 0 ? -1 * polar_coordinates.angle : polar_coordinates.angle
+	);
+}
+
+void print_rectangular_coodrinates(
+	RectangularCoordinates rectangular_coordinates
+) {
+	char y_sign = rectangular_coordinates.y >= 0 ? '+' : '-';
+	printf(
+		"%.2f %c %.2f",
+		rectangular_coordinates.x,
+		y_sign,
+		rectangular_coordinates.y < 0.0 ? -1.0 * rectangular_coordinates.y : rectangular_coordinates.y
 	);
 }

@@ -30,4 +30,5 @@ void draw_box(int user_input) {
 	for (int i = 0; i < user_input; i++) {
 		printf("%s\n", row);
 	}
+	free(row);
 }

@@ -33,6 +33,8 @@ int main() {
 				run_squaring();
 				break;
 			case Overtime:
+				printf("\n");
+				run_overtime();
 				break;
 			case Exit:
 				printf("Thank you for your time\n");

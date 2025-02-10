@@ -3,11 +3,11 @@
 
 #include "floor.h"
 
-const char* FORMATTING_TEMPLATE = "|%-10.0lf|%-10.1lf|%-10.2lf|%-10.3lf|%-10lf|";
+const char* FLOOR_FORMATTING_TEMPLATE = "|%-10.0lf|%-10.1lf|%-10.2lf|%-10.3lf|%-10lf|";
 const char* ANSI_ESCAPE = "\x1B";
 const char* ANSI_CARRIAGE_RETURN = "\x0D";
 
-void introduction();
+void introduce_floor();
 double round_to_integer(double);
 double round_to_tenths(double);
 double round_to_hundredths(double);
@@ -15,7 +15,7 @@ double round_to_thousandths(double);
 double round_to_decimal(double, int);
 
 void run_floor() {
-	introduction();
+	introduce_floor();
 	while (1) {
 		double user_input = 0.0;
 		printf("Enter value please: ");
@@ -27,7 +27,7 @@ void run_floor() {
 		char rounded_values[256];
 		sprintf(
 			&rounded_values,
-			FORMATTING_TEMPLATE,
+			FLOOR_FORMATTING_TEMPLATE,
 			round_to_integer(user_input),
 			round_to_tenths(user_input),
 			round_to_hundredths(user_input),
@@ -44,7 +44,7 @@ void run_floor() {
 	printf("Thank you for rounding\n");
 }
 
-void introduction() {
+void introduce_floor() {
 	printf("Welcome to Rounding! Please enter a decial value to see it rounded. Enter 0 to exit\n\n");
 	printf("--------------------------------------------------------\n");
 	printf("|1         |0.1       |0.01      |0.001     |User value|\n");

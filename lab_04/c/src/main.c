@@ -25,8 +25,12 @@ int main() {
 				run_floor();
 				break;
 			case EvenOrOdd:
+				printf("\n");
+				run_even_or_odd();
 				break;
 			case Squaring:
+				printf("\n");
+				run_squaring();
 				break;
 			case Overtime:
 				break;

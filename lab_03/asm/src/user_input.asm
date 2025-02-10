@@ -11,7 +11,7 @@ get_user_input:
 	mov $1, %rax
 	mov $1, %rdi
 	mov $prompt, %rsi
-	mov $15, %rdx
+	mov $34, %rdx
 	syscall
 
 #TODO: Sort out input

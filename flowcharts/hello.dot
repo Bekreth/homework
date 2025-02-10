@@ -1,0 +1,5 @@
+digraph test {
+	a [label = "bob", shape = "box"];
+	a -> {b, d};
+	b -> c;
+}

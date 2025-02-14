@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <math.h>
 
 #include "user_time.h"
 
@@ -30,15 +31,11 @@ int calculate_delta_seconds(
 ) {
 	int time_1_seconds = to_seconds(user_time_1);
 	int time_2_seconds = to_seconds(user_time_2);
-	if (time_2_seconds > time_1_seconds) {
-		// add 12 hours if time 1 is less than time 2
-		time_1_seconds += 12*3600;
-	}
-	return time_1_seconds - time_2_seconds;	
+	return abs(time_1_seconds - time_2_seconds);	
 }
 
 int to_seconds(UserTime* input) {
-	return *(&input->hours)*3600 +
+	return (*(&input->hours) % 12)*3600 +
 		*(&input->minutes)*60 +
 		*(&input->seconds);
 }

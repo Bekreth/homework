@@ -25,8 +25,8 @@ void run_floor() {
 			break;
 		}
 
-		int rounded_value_size = 55;
-		char* rounded_values = malloc(sizeof(char) * rounded_value_size);
+		int rounded_values_length = 57;
+		char* rounded_values = malloc(sizeof(char) * rounded_values_length);
 		sprintf(
 			rounded_values,
 			FLOOR_FORMATTING_TEMPLATE,
@@ -36,18 +36,9 @@ void run_floor() {
 			round_to_thousandths(user_input),
 			user_input
 		);
-
-		screen_view.content_length += 1;
-		screen_view.content = realloc(
-			screen_view.content, 
-			sizeof(ScreenLine) * screen_view.content_length
-		);
-		ScreenLine updated_line = {
-			.line = rounded_values,
-			.line_length = rounded_value_size
-		};
-		screen_view.content[screen_view.content_length-1] = updated_line;
+		expand_content(&screen_view, rounded_values, rounded_values_length);
 	}
+	//free_screen_content(&screen_view);
 }
 
 double round_to_integer(double user_input) {
@@ -87,13 +78,13 @@ ScreenView build_floor_view() {
 
 	ScreenLine line_0 = {
 		.line = "--------------------------------------------------------",
-		.line_length = 55,
+		.line_length = 57,
 	};
 	output.content[0] = line_0;
 
 	ScreenLine line_1 = {
 		.line = "|1         |0.1       |0.01      |0.001     |User value|",
-		.line_length = 55,
+		.line_length = 57,
 	};
 	output.content[1] = line_1;
 

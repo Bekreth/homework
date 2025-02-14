@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "screen_writer.h"
 
@@ -32,6 +33,27 @@ void draw_screen_view(ScreenView draw_request) {
 		draw_line(draw_request.content[i]);
 	}
 	printf("%s", draw_request.user_input_prompt);
+}
+
+void expand_content(ScreenView* screen_view, char* text, int text_length) {
+	screen_view->content_length += 1;
+	screen_view->content = realloc(
+		screen_view->content, 
+		sizeof(ScreenLine) * screen_view->content_length
+	);
+	ScreenLine updated_line = {
+		.line = text,
+		.line_length = text_length
+	};
+	screen_view->content[screen_view->content_length-1] = updated_line;
+}
+
+//TODO: Sort out the Mutex issue on free
+void free_screen_content(ScreenView* screen_view) {
+	for (int i = 0; i < screen_view->content_length; i++) {
+		free(screen_view->content[i].line);
+	}
+	free(screen_view->content);
 }
 
 void set_cursor_coordinates(int x, int y) {

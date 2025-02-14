@@ -14,5 +14,7 @@ typedef struct ScreenView {
 } ScreenView;
 
 void draw_screen_view(ScreenView);
+void expand_content(ScreenView*, char*, int);
+void free_screen_content(ScreenView*);
 
 #endif

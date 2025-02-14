@@ -19,26 +19,17 @@ void run_even_or_odd() {
 			break;
 		}
 
-		int even_odd_value_size = 55;
-		char* even_odd_value = malloc(sizeof(char) * even_odd_value_size);
+		int even_odd_value_length = 55;
+		char* even_odd_value = malloc(sizeof(char) * even_odd_value_length);
 		sprintf(
 			even_odd_value,
 			EVEN_ODD_FORMATTING_TEMPLATE,
 			is_odd(user_input) ? "Odd" : "Even",
 			user_input
 		);
-
-		screen_view.content_length += 1;
-		screen_view.content = realloc(
-			screen_view.content, 
-			sizeof(ScreenLine) * screen_view.content_length
-		);
-		ScreenLine updated_line = {
-			.line = even_odd_value,
-			.line_length = even_odd_value_size
-		};
-		screen_view.content[screen_view.content_length-1] = updated_line;
+		expand_content(&screen_view, even_odd_value, even_odd_value_length);
 	}
+	//free_screen_content(&screen_view);
 }
 
 int is_odd(int user_input) {

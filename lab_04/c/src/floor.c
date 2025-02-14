@@ -25,7 +25,8 @@ void run_floor() {
 			break;
 		}
 
-		char* rounded_values = malloc(sizeof(char) * 55);
+		int rounded_value_size = 55;
+		char* rounded_values = malloc(sizeof(char) * rounded_value_size);
 		sprintf(
 			rounded_values,
 			FLOOR_FORMATTING_TEMPLATE,
@@ -35,6 +36,7 @@ void run_floor() {
 			round_to_thousandths(user_input),
 			user_input
 		);
+
 		screen_view.content_length += 1;
 		screen_view.content = realloc(
 			screen_view.content, 
@@ -42,7 +44,7 @@ void run_floor() {
 		);
 		ScreenLine updated_line = {
 			.line = rounded_values,
-			.line_length = 256
+			.line_length = rounded_value_size
 		};
 		screen_view.content[screen_view.content_length-1] = updated_line;
 	}

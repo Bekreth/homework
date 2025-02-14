@@ -47,8 +47,8 @@ void run_overtime() {
 ScreenView build_overtime_view() {
 	ScreenView output;
 	ScreenLine header_line = {
-		.line = "Welcome to Overtime! Input a number an be told whether its even or odd. Enter 0 to exit",
-		.line_length = 80,
+		.line = "Welcome to Overtime! Input a number an be told whether its even or odd. Enter 00:00:00 to exit",
+		.line_length = 90,
 	};
 	output.header = header_line;
 

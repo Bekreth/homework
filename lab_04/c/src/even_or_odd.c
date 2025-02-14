@@ -37,5 +37,5 @@ int is_odd(int user_input) {
 
 /**
 The golfed solution is as follows. I will not run code through this.
-int o(int i){return i%2;}
+o(int* i){*i%=2;}
  */

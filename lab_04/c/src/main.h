@@ -10,6 +10,4 @@ typedef enum MenuOption {
 	Exit
 } MenuOption ;
 
-MenuOption fetch_user_menu_selection();
-
 #endif

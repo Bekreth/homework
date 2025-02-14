@@ -6,6 +6,8 @@
 
 int main() {
 	Cache cache = new_cache();
+	count_primes(&cache, 10, 20);
+	/*
 	while (1) {
 		unsigned long number = 0;
 		printf("Enter a number: ");
@@ -19,4 +21,5 @@ int main() {
 			printf("\nCOMPOSITE\n");
 		}
 	}
+	*/
 }

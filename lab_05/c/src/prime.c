@@ -18,8 +18,8 @@ Cache new_cache() {
 
 	PrimeCache* prime_cache = malloc(sizeof(PrimeCache));
 	prime_cache->capacity = 10;
+	prime_cache->length = 0;
 	prime_cache->known_primes = malloc(sizeof(unsigned long) * 10);
-	prime_cache->capacity = 10;
 	prime_cache->largest_known_prime = 0;
 
 	Cache output = {

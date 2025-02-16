@@ -4,8 +4,8 @@
 #include <setjmp.h>
 #include <cmocka.h>
 
-#include "../src/prime.h"
-#include "../src/prime.c"
+#include "cache/cache.h"
+#include "cache/cache.c"
 
 static void test_append_prime_cache(void **state) {
 	Cache cache = new_cache();

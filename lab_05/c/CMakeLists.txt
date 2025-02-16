@@ -16,7 +16,7 @@ install(
   LIBRARY DESTINATION lib
 )
 
-#add_subdirectory(test)
+add_subdirectory(test)
 add_subdirectory(src/cache)
 
 target_link_libraries(lab_05 cache)

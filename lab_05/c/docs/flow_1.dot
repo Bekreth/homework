@@ -1,3 +1,46 @@
 digraph Finding_Primes {
-	a->b;
+	initialize_cache -> user_input_mm -> {prime_intro, counter_intro, factor_intro};
+
+	subgraph cluster_Prime {
+		label="Primes"
+		prime_intro -> is_number_in_prime_cache;
+
+		is_number_in_prime_cache -> return_prime [label="yes"]
+		is_number_in_prime_cache -> is_number_in_composite_cache [label="no"]
+
+		is_number_in_composite_cache -> return_composite [label="yes"]
+		is_number_in_composite_cache -> expand_cache [label="no"]
+
+		subgraph cluster_ExpandCache {
+			label="Expand Cache"
+			expand_cache -> is_expansion_divisible_by_known_primes
+
+			is_expansion_divisible_by_known_primes -> append_composite_cache [label="yes"]
+			is_expansion_divisible_by_known_primes -> is_cache_up_to_date1 [label="no"]
+
+			is_cache_up_to_date -> append_prime_cache [label="yes"]
+			is_cache_up_to_date -> expand_cache [label="no"]
+
+			append_prime_cache -> is_number_divisible_by_new_prime
+			is_number_divisible_by_new_prime -> append_composite_cache [label="yes"]
+			is_number_divisible_by_new_prime -> return_prime [label="no"]
+
+			append_composite_cache -> is_cache_up_to_date2
+
+			is_cache_up_to_date2 -> expand_cache [label="no"]
+			is_cache_up_to_date2 -> append_prime_cache [label="yes"]
+
+		}
+	}
+
+	subgraph cluster_Counter {
+		label="Counter"
+		counter_intro
+	}
+
+	subgraph cluster_Factorize {
+		label="Factorize"
+		factor_intro
+	}
+
 }

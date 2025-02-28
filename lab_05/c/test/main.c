@@ -1,14 +1,21 @@
 #include <stdio.h>
 
-#include "factorize.c"
-#include "prime.c"
+#include "cache_test.c"
+#include "prime_test.c"
 
 int main() {
-	const struct CMUnitTest tests[] = {
-		cmocka_unit_test(null_test_success),
-		cmocka_unit_test(test_append_prime_cache),
-		cmocka_unit_test(test_append_composite_cache),
-	};
+	int prime_test_result = cmocka_run_group_tests_name(
+		"Prime Tests",
+		prime_tests,
+		NULL,
+		NULL
+	);
+	int cache_test_result = cmocka_run_group_tests_name(
+		"Cache Tests", 
+		cache_tests, 
+		NULL, 
+		NULL
+	);
 
-	return cmocka_run_group_tests(tests, NULL, NULL);
+	return cache_test_result == prime_test_result && cache_test_result == 0;
 }

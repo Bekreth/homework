@@ -4,8 +4,14 @@
 #include <setjmp.h>
 #include <cmocka.h>
 
-#include "cache/cache.h"
-#include "cache/cache.c"
+#include "test_includes.h"
+
+static void test_append_prime_cache(void **state);
+static void test_append_composite_cache(void **state);
+const struct CMUnitTest cache_tests[] = {
+		cmocka_unit_test(test_append_prime_cache),
+		cmocka_unit_test(test_append_composite_cache)
+};
 
 static void test_append_prime_cache(void **state) {
 	Cache cache = new_cache();

@@ -1,4 +1,5 @@
 find_package(cmocka REQUIRED)
+find_package(tui REQUIRED)
 
 enable_testing()
 include(CTest)
@@ -11,6 +12,7 @@ add_executable(
 )
 
 target_link_libraries(test_suite cmocka::cmocka)
+target_link_libraries(test_suite tui::tui)
 target_include_directories(test_suite PUBLIC ../src)
 
 add_test(test_suite test_suite)

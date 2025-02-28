@@ -2,6 +2,8 @@
 
 #include "counter.h"
 
+void run_counter(Cache* cache) {
+}
 
 void count_primes(Cache* cache, unsigned long number_1, unsigned long number_2) {
 	if (cache->prime_cache->largest_known_prime < number_2) {

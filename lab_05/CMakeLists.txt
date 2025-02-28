@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.15)
 project(lab_05 C)
+find_package(tui REQUIRED)
 
 add_executable(
 	lab_05 
@@ -20,3 +21,4 @@ add_subdirectory(test)
 add_subdirectory(src/cache)
 
 target_link_libraries(lab_05 cache)
+target_link_libraries(lab_05 tui::tui)

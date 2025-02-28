@@ -17,10 +17,12 @@ int main() {
 	Cache cache = new_cache();
 	ScreenView screen_view = build_menu_view();
 	MenuOption user_menu_selection = MainMenu;
+	char user_input[20];
 
 	while (1) {
 		draw_screen_view(screen_view);
-		scanf("%i", &user_menu_selection);
+		fgets(user_input, 20, stdin);
+		sscanf(user_input, "%i", &user_menu_selection);
 		switch (user_menu_selection) {
 			case MainMenu:
 				break;

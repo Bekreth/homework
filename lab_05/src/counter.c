@@ -5,11 +5,16 @@
 
 ScreenView build_counter_view();
 
-const char* LINE_DRAWING = "--------------------------";
-const int LINE_LENGTH = 25;
-const char* USER_RANGE_PROMPT = "|User Range? |Primes      |";
-const char* USER_VIEW_PROMPT  = "|Display results? (y/n)   |";
+const char* LINE_DRAWING = "---------------------------";
+const int LINE_LENGTH = 30;
+const char* USER_RANGE_PROMPT = " Please enter range x,y: ";
+const char* USER_VIEW_PROMPT  = " Display results? (y/n): ";
 
+const char* OUTPUT_HEADER = "|User Range?|Primes       |";
+const char* COUNTER_OUTPUT_TEMPLATE_FIRST_LINE = "|%-5ld %-5ld|%-13ld|";
+const char* COUNTER_OUTPUT_TEMPLATE_FIRST_LINE_WITHOUT_PRIME = "|%-5ld-%-5ld|             |";
+const char* COUNTER_OUTPUT_TEMPLATE_PRIME = "|           |%-13ld|";
+const char* COUNTER_OUTPUT_TEMPLATE_LAST_LINE = "|      Count|%-13ld|";
 
 void run_counter(Cache* cache) {
 	ScreenView screen_view = build_counter_view();
@@ -17,22 +22,70 @@ void run_counter(Cache* cache) {
 		draw_screen_view(screen_view);
 		unsigned long user_input_1 = 0;
 		unsigned long user_input_2 = 0;
-		scanf("%ld,%ld", &user_input_1, &user_input_2);
+		char input[20];
+		fgets(input, 20, stdin);
+		sscanf(input, "%ld,%ld", &user_input_1, &user_input_2);
 		if (user_input_1 == 0) {
 			break;
 		}
 
 		PrimeCount prime_count = count_primes(cache, user_input_1, user_input_2);
-		//TODO
-		//screen_view.user_input.line = USER_VIEW_PROMPT;
-		ScreenView screen_view = build_counter_view();
-		char view_results = "a";
-		scanf("%c", &view_results);
+		screen_view.user_input_prompt.line = USER_VIEW_PROMPT;
+		draw_screen_view(screen_view);
+		char view_results = 'a';
+		fgets(input, 20, stdin);
+		sscanf(input, "%c", &view_results);
 
-		if (view_results == "y") {
-			//TODO: expand content with prime list
+		if (view_results == 'y') {
+			for (int i = 0; i < prime_count.length; i++) {
+				char* line = malloc(sizeof(char) * LINE_LENGTH);
+				if (i == 0) {
+					sprintf(
+						line,
+						COUNTER_OUTPUT_TEMPLATE_FIRST_LINE,
+						user_input_1,
+						user_input_2,
+						prime_count.primes[i],
+						LINE_LENGTH
+					);
+				} else if (i < prime_count.length) {
+					sprintf(
+						line,
+						COUNTER_OUTPUT_TEMPLATE_PRIME,
+						prime_count.primes[i],
+						LINE_LENGTH
+					);
+				} else {
+					sprintf(
+						line,
+						COUNTER_OUTPUT_TEMPLATE_LAST_LINE,
+						prime_count.length,
+						LINE_LENGTH
+					);
+				}
+				expand_content(&screen_view, line, LINE_LENGTH);
+			}
+		} else {
+			char* first_line = malloc(sizeof(char) * LINE_LENGTH);
+			sprintf(
+				first_line,
+				COUNTER_OUTPUT_TEMPLATE_FIRST_LINE_WITHOUT_PRIME,
+				user_input_1,
+				user_input_2,
+				LINE_LENGTH
+			);
+			expand_content(&screen_view, first_line, LINE_LENGTH);
+			char* second_line = malloc(sizeof(char) * LINE_LENGTH);
+			sprintf(
+				second_line,
+				COUNTER_OUTPUT_TEMPLATE_LAST_LINE,
+				prime_count.length,
+				LINE_LENGTH
+			);
+			expand_content(&screen_view, second_line, LINE_LENGTH);
 		}
-		//TODO: expand content with prime count and line
+		expand_content(&screen_view, LINE_DRAWING, LINE_LENGTH);
+		screen_view.user_input_prompt.line = USER_RANGE_PROMPT;
 	}
 }
 
@@ -84,7 +137,6 @@ ScreenView build_counter_view() {
 	};
 	output.header = header_line;
 
-	/*
 	output.content_length = 2;
 	output.content = malloc(sizeof(ScreenView) * output.content_length);
 	ScreenLine line_0 = {
@@ -94,16 +146,15 @@ ScreenView build_counter_view() {
 	output.content[0] = line_0;
 
 	ScreenLine line_1 = {
-		.line = USER_RANGE_PROMPT,
-		.line_length = 25,
+		.line = OUTPUT_HEADER,
+		.line_length = LINE_LENGTH,
 	};
 	output.content[1] = line_1;
 
 	ScreenLine user_input = {
 		.line = " Please enter range x,y: ",
-		.line_length = 20,
+		.line_length = LINE_LENGTH,
 	};
 	output.user_input_prompt = user_input;
-	*/
 	return output;
 }

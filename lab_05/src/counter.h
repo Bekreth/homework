@@ -3,7 +3,12 @@
 
 #include "cache/cache.h"
 
+typedef struct PrimeCount {
+	int* primes;
+	int length;
+} PrimeCount;
+
 void run_counter(Cache*);
-void count_primes(Cache*, unsigned long, unsigned long);
+PrimeCount count_primes(Cache*, unsigned long, unsigned long);
 
 #endif

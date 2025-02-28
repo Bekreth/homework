@@ -7,4 +7,7 @@
 #include "prime.h"
 #include "prime.c"
 
+#include "counter.h"
+#include "counter.c"
+
 #endif

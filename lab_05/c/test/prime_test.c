@@ -12,10 +12,14 @@ static void test_divisible_by_known_primes(void **state);
 static void test_number_is_known_composite(void **state);
 static void test_is_prime(void **state);
 
+/**
+ * Trivial set of unit tests to verify basic behavior and learn how to use CMocka
+ */
+
 const struct CMUnitTest prime_tests[] = {
-	test_divisible_by_known_primes,
-	test_number_is_known_composite
-//	test_is_prime
+	cmocka_unit_test(test_divisible_by_known_primes),
+	cmocka_unit_test(test_number_is_known_composite),
+	cmocka_unit_test(test_is_prime)
 };
 
 static void test_divisible_by_known_primes(void **state) {
@@ -48,4 +52,16 @@ static void test_number_is_known_composite(void **state) {
 
 static void test_is_prime(void **state) {
 	Cache test_cache = new_cache();
+
+	// Verifies that this is a composite
+	assert_false(is_prime(&test_cache, 4));
+
+	// Verifies that this is a prime
+	assert_true(is_prime(&test_cache, 2));
+
+	// Verifies that this is a prime, finding it through search
+	assert_true(is_prime(&test_cache, 3));
+
+	// Verifies that this is a composite, finding it through search
+	assert_false(is_prime(&test_cache, 9));
 }

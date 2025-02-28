@@ -6,6 +6,7 @@
 
 const char* PRIME_TEMPLATE = "|%-10s|%-10d|";
 
+bool number_is_known_prime(PrimeCache*, unsigned long );
 bool number_is_known_composite(CompositeCache*, unsigned long );
 bool divisible_by_known_primes(PrimeCache*, unsigned long);
 
@@ -34,6 +35,9 @@ void run_prime(Cache* cache) {
 }
 
 bool is_prime(Cache* cache, unsigned long number) {
+	if (number_is_known_prime(cache->prime_cache, number)) {
+		return true;
+	}
 	if (number_is_known_composite(cache->composite_cache, number)) {
 		return false;
 	}
@@ -55,6 +59,19 @@ bool is_prime(Cache* cache, unsigned long number) {
 	append_prime_cache(cache->prime_cache, number);
 	return true;
 }
+
+bool number_is_known_prime(PrimeCache* cache, unsigned long number) {
+	if (number > cache->largest_known_prime) {
+		return false;
+	}
+	for (int i = 0; i < cache->length; i++) {
+		if (number == cache->known_primes[i]) {
+			return true;
+		}
+	}
+	return false;
+}
+
 
 bool number_is_known_composite(CompositeCache* cache, unsigned long number) {
 	if (number > cache->largest_known_composite) {

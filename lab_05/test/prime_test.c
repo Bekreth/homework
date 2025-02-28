@@ -10,6 +10,7 @@
 
 static void test_divisible_by_known_primes(void **state);
 static void test_number_is_known_composite(void **state);
+static void test_number_is_known_prime(void **state);
 static void test_is_prime(void **state);
 
 /**
@@ -19,6 +20,7 @@ static void test_is_prime(void **state);
 const struct CMUnitTest prime_tests[] = {
 	cmocka_unit_test(test_divisible_by_known_primes),
 	cmocka_unit_test(test_number_is_known_composite),
+	cmocka_unit_test(test_number_is_known_prime),
 	cmocka_unit_test(test_is_prime)
 };
 
@@ -33,6 +35,21 @@ static void test_divisible_by_known_primes(void **state) {
 	append_prime_cache(test_prime_cache, 5);
 	assert_true(divisible_by_known_primes(test_prime_cache, 15));
 
+}
+
+static void test_number_is_known_prime(void **state) {
+	Cache test_cache = new_cache();
+	PrimeCache* test_prime_cache = test_cache.prime_cache;
+
+	// number larger than largest known prime
+	assert_false(number_is_known_prime(test_prime_cache, 91));
+
+	// known prime
+	assert_true(number_is_known_prime(test_prime_cache, 2));
+
+	// Unknown prime within upper bounds
+	append_composite_cache(test_prime_cache, 11);
+	assert_false(number_is_known_prime(test_prime_cache, 7));
 }
 
 static void test_number_is_known_composite(void **state) {

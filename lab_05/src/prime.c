@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 
@@ -17,7 +18,9 @@ void run_prime(Cache* cache) {
 	while (1) {
 		draw_screen_view(screen_view);
 		unsigned long user_input = 0;
-		scanf("%ld", &user_input);
+		char input[20];
+		fgets(input, 20, stdin);
+		sscanf(input, "%ld", &user_input);
 		if (user_input == 0) {
 			break;
 		}

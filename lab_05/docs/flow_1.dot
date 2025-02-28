@@ -1,46 +1,71 @@
 digraph Finding_Primes {
+	node [shape = box]
+	splines = ortho
+	initialize_cache [label = "Initialize Cache"]
+	user_input_mm  [label = "Main Menu"]
+
 	initialize_cache -> user_input_mm -> {prime_intro, counter_intro, factor_intro};
 
 	subgraph cluster_Prime {
 		label="Primes"
-		prime_intro -> is_number_in_prime_cache;
+		edge [color = "red1"]
 
-		is_number_in_prime_cache -> return_prime [label="yes"]
-		is_number_in_prime_cache -> is_number_in_composite_cache [label="no"]
+		prime_intro [label="Prime Loop"]
+		should_exit [shape = parallelogram]
+		is_number_in_cache [shape = parallelogram]
 
-		is_number_in_composite_cache -> return_composite [label="yes"]
-		is_number_in_composite_cache -> expand_cache [label="no"]
+		prime_intro -> get_user_input
+		get_user_input -> should_exit
 
-		subgraph cluster_ExpandCache {
-			label="Expand Cache"
-			expand_cache -> is_expansion_divisible_by_known_primes
+		should_exit -> is_number_in_cache [label = "no"]
+		
+		is_number_in_cache -> expand_cache [label = "no"]
+		expand_cache -> is_number_in_cache 
+		is_number_in_cache -> print_output [label = "yes"]
 
-			is_expansion_divisible_by_known_primes -> append_composite_cache [label="yes"]
-			is_expansion_divisible_by_known_primes -> is_cache_up_to_date1 [label="no"]
-
-			is_cache_up_to_date -> append_prime_cache [label="yes"]
-			is_cache_up_to_date -> expand_cache [label="no"]
-
-			append_prime_cache -> is_number_divisible_by_new_prime
-			is_number_divisible_by_new_prime -> append_composite_cache [label="yes"]
-			is_number_divisible_by_new_prime -> return_prime [label="no"]
-
-			append_composite_cache -> is_cache_up_to_date2
-
-			is_cache_up_to_date2 -> expand_cache [label="no"]
-			is_cache_up_to_date2 -> append_prime_cache [label="yes"]
-
-		}
+		print_output -> prime_intro
 	}
+	should_exit -> user_input_mm [label = "yes"]
 
 	subgraph cluster_Counter {
 		label="Counter"
-		counter_intro
+		edge [color = "green4"]
+
+		counter_intro [label="Counter Loop"]
+		should_exit_1 [shape = parallelogram]
+		is_biggest_number_in_cache [shape = parallelogram]
+
+		counter_intro -> get_user_input_1
+		get_user_input_1 -> should_exit_1
+
+		should_exit_1 -> is_biggest_number_in_cache [label="no"]
+		is_biggest_number_in_cache -> expand_cache_1 [label="no"]
+		expand_cache_1 ->  is_biggest_number_in_cache 
+		is_biggest_number_in_cache -> get_cache_range [label = "yes"]
+
+		get_cache_range -> print_range_output -> counter_intro
 	}
+	should_exit_1 -> user_input_mm [label = "yes"]
 
 	subgraph cluster_Factorize {
 		label="Factorize"
-		factor_intro
+		edge [color = "blue"]
+
+		factor_intro [label="Factorizing Loop"]
+		should_exit_2 [shape = parallelogram]
+		is_largest_number_in_cache [shape = parallelogram]
+
+		factor_intro -> get_user_input_2 -> should_exit_2
+		should_exit_2 -> is_largest_number_in_cache [label = "no"]
+
+		is_largest_number_in_cache -> expand_cache_3 [label = "no"]
+		expand_cache_3 -> is_largest_number_in_cache 
+	
+		is_largest_number_in_cache -> filter_output [label = "yes"]	
+		filter_output -> print_factor_output 
+
+		print_factor_output -> factor_intro
 	}
+	should_exit_2 -> user_input_mm [label = "yes"]
 
 }

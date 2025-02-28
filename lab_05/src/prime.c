@@ -84,12 +84,11 @@ bool divisible_by_known_primes(PrimeCache* cache, unsigned long number) {
 ScreenView build_prime_view() {
 	ScreenView output;
 	ScreenLine header_line = {
-		.line = "Welcome to Prime! Input a number to find out if its prime. 1 to exit",
+		.line = "Welcome to Prime! Input a number to find out if its prime. 0 to exit",
 		.line_length = 67,
 	};
 	output.header = header_line;
 
-	//TODO: The first two lines of this aren't "content".  Need to rework the screen writer header
 	output.content_length = 2;
 	output.content = malloc(sizeof(ScreenView) * output.content_length);
 

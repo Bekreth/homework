@@ -10,4 +10,7 @@
 #include "counter.h"
 #include "counter.c"
 
+#include "factorize.h"
+#include "factorize.c"
+
 #endif

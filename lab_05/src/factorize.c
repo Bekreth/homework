@@ -20,11 +20,17 @@ void run_factorize(Cache* cache) {
 			break;
 		}
 
-		//TODO: Get the number of factors to show
-		int factor_count = 2;
+		screen_view.user_input_prompt.line = FACTOR_COUNT;
+		draw_screen_view(screen_view);
+		int factor_count = 100;
+		fgets(input, 20, stdin);
+		sscanf(input, "%d", &factor_count);
 
-		//TODO: Get whether to show primes
-		char show_primes = 'y';
+		screen_view.user_input_prompt.line = USER_VIEW_PROMPT;
+		draw_screen_view(screen_view);
+		char show_primes = 'n';
+		fgets(input, 20, stdin);
+		sscanf(input, "%c", &show_primes);
 
 		char* starting_line = malloc(sizeof(char) * LINE_LENGTH);
 		sprintf(
@@ -73,14 +79,12 @@ void run_factorize(Cache* cache) {
 					}
 					expand_content(&screen_view, line, LINE_LENGTH);
 				}
-				expand_content(&screen_view, MID_LINE, LINE_LENGTH);
 			} else {
 				char* first_line = malloc(sizeof(char) * LINE_LENGTH);
 				sprintf(
 					first_line,
-					COUNTER_OUTPUT_TEMPLATE_FIRST_LINE_WITHOUT_PRIME,
-					user_input_1,
-					user_input_2,
+					FACTOR_OUTPUT_TEMPLATE_FIRST_LINE_WITHOUT_PRIME,
+					i,
 					LINE_LENGTH
 				);
 				expand_content(&screen_view, first_line, LINE_LENGTH);
@@ -93,6 +97,7 @@ void run_factorize(Cache* cache) {
 				);
 				expand_content(&screen_view, second_line, LINE_LENGTH);
 			}
+			expand_content(&screen_view, MID_LINE, LINE_LENGTH);
 		}
 		char* ending_line = malloc(sizeof(char) * LINE_LENGTH);
 		sprintf(
@@ -148,6 +153,7 @@ ScreenView build_factorize_view() {
 		.line = "Welcome to Prime Factorizer! To find the prime factors of various functions, provide input (x,y)! 0 to exit",
 		.line_length = 106,
 	};
+	output.header = header_line;
 
 	output.content_length = 2;
 	output.content = malloc(sizeof(ScreenView) * output.content_length);

@@ -4,6 +4,9 @@
 #include "cache/cache.h"
 #include "cache/cache.c"
 
+#include "table.h"
+#include "table.c"
+
 #include "prime.h"
 #include "prime.c"
 

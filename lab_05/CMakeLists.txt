@@ -8,6 +8,7 @@ add_executable(
 	src/counter.c src/counter.h
 	src/factorize.c src/factorize.h
 	src/prime.c src/prime.h
+	src/table.c	src/table.h
 )
 
 install(

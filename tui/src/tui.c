@@ -28,7 +28,6 @@ const char* DIM = "[2m";
 const char* YELLOW = "[33m";
 
 
-void clear_screen();
 void set_cursor_coordinates(int, int);
 void draw_header(ScreenLine);
 void draw_content(ScreenLine);

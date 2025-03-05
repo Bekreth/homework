@@ -36,6 +36,7 @@ class lab_06Recipe(ConanFile):
 
     def requirements(self):
         self.requires("cmocka/1.1.7")
+        self.requires("tui/0.2")
 
     def package(self):
         cmake = CMake(self)

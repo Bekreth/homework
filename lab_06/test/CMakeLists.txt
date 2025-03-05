@@ -1,5 +1,5 @@
 find_package(cmocka REQUIRED)
-
+find_package(tui REQUIRED)
 
 enable_testing()
 include(CTest)

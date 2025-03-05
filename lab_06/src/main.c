@@ -1,5 +1,6 @@
 #include <stdio.h>
 
+#include "tui.h"
 #include "common.h"
 
 #define TITLE_LENGTH 80
@@ -28,5 +29,6 @@ int main() {
 		2
 	);
 	print_menu(&menu);
+	clear_screen();
 	return 0;
 }

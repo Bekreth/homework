@@ -1,8 +1,8 @@
 #include <stdio.h>
 
-#include "other.c"
+#include "common.h"
 
 int main() {
-	printf("lab 06 %d\n", function());
+	printf("lab 06 %d\n");
 	return 1;
 }

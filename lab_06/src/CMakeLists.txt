@@ -1,4 +1,4 @@
 add_library(
 	exe STATIC
-	other.c
+	common.c common.h
 )

@@ -34,6 +34,9 @@ class lab_06Recipe(ConanFile):
         cmake.configure()
         cmake.build()
 
+    def requirements(self):
+        self.requires("cmocka/1.1.7")
+
     def package(self):
         cmake = CMake(self)
         cmake.install()

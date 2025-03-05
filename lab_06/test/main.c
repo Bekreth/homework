@@ -7,4 +7,6 @@ int main() {
 		NULL, 
 		NULL
 	);
+
+	return cursor_test_results;
 }

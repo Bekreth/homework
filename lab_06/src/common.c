@@ -20,6 +20,7 @@ Menu new_menu(
 	menu.cursor_position = 0;
 	menu.cursor_length = cursor_length;
 	menu.cursor_character = cursor;
+	menu.selected_element = -1;
 	return menu;
 }
 
@@ -53,4 +54,10 @@ void print_menu(Menu* menu) {
 			cursor_character
 		);
 	}
+	printf(
+		"SELECTED : %s\n",
+		menu->selected_element >= 0 
+			? menu->elements[menu->selected_element]
+			: "Nothing selected"
+	);
 }

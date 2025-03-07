@@ -12,6 +12,7 @@ typedef struct Menu {
 	int cursor_position;
 	unsigned int cursor_length;
 	char* cursor_character;
+	int selected_element;
 } Menu;
 
 typedef enum CursorDirection {

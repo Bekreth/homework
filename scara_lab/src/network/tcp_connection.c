@@ -13,8 +13,7 @@
 int socket_file_descriptor = 0;
 
 void create_connection() {
-	struct sockaddr_in;
-	struct server_sockaddr_in;
+	struct sockaddr_in server_sockaddr_in;
 
 	server_sockaddr_in.sin_family = AF_INET;
 	server_sockaddr_in.sin_addr.s_addr = inet_addr("127.0.0.1");
@@ -24,10 +23,10 @@ void create_connection() {
 	connect(socket_file_descriptor, (struct sockaddr *)&server_sockaddr_in, sizeof(server_sockaddr_in));
 }
 
-void send_commands(Command[] commands, int length) {
+void send_commands(Command commands[], int length) {
 	for (int i = 0; i < length; i++) {
 		//TODO: Who cares about errors anyway!
-		write(socket_file_descriptor, commands[i].text, commands[i].length);
+		int error_code = write(socket_file_descriptor, commands[i].text, commands[i].length);
 	}
 }
 

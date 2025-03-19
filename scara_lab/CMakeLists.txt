@@ -12,7 +12,7 @@ install(
 )
 
 add_subdirectory(src)
-target_link_libraries(scara_lab exe kinematics)#network 
+target_link_libraries(scara_lab exe kinematics network)
 
 add_subdirectory(test)
 target_link_libraries(test_suite test_exe)

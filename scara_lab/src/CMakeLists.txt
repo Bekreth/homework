@@ -3,3 +3,5 @@ add_library(
 	scara_lab.c scara_lab.h
 )
 
+#add_subdirectory(network)
+add_subdirectory(kinematics)

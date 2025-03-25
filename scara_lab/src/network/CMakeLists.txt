@@ -1,4 +1,3 @@
-
 add_library(
 	network STATIC
 	network.h 

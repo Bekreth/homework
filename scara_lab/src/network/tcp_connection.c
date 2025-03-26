@@ -23,9 +23,11 @@ void create_connection() {
 	connect(socket_file_descriptor, (struct sockaddr *)&server_sockaddr_in, sizeof(server_sockaddr_in));
 }
 
+#include <stdio.h>
 void send_commands(Command commands[], int length) {
 	for (int i = 0; i < length; i++) {
 		//TODO: Who cares about errors anyway!
+		printf(commands[i].text);
 		int error_code = write(socket_file_descriptor, commands[i].text, commands[i].length);
 	}
 }

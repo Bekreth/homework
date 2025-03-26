@@ -22,9 +22,9 @@ Command pen_down() {
 	return output;
 }
 
-const char* PEN_COLOR_FORMAT = "PEN_COLOR %-2u %-2u %-2u\n";
-Command pen_color(int8_t red, int8_t green, int8_t blue) {
-	int length = 22;
+const char* PEN_COLOR_FORMAT = "PEN_COLOR %u %u %u\n";
+Command pen_color(uint8_t red, uint8_t green, uint8_t blue) {
+	int length = 23;
 	char* text = malloc(sizeof(char) * length);
 	sprintf(text, PEN_COLOR_FORMAT, red, green, blue);
 	Command output = {

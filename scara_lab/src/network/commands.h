@@ -15,7 +15,7 @@ typedef struct Command {
 // Pen Commands
 Command pen_up();
 Command pen_down();
-Command pen_color(int8_t red, int8_t green, int8_t blue);
+Command pen_color(uint8_t red, uint8_t green, uint8_t blue);
 Command cycle_pen_color(bool enable);
 
 // Movement Commands

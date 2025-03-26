@@ -1,13 +1,17 @@
+#include <stdlib.h>
+#include <stdio.h>
+
 #include "commands.h"
 
 const char* motor_speed_strings[] = { "HIGH", "MEDIUM", "LOW" };
 
+// Pen Commands
 Command pen_up() {
 	Command output = {
 		.text = "PEN_UP\n",
 		.length = 7
 	};
-	return output
+	return output;
 }
 
 Command pen_down() {
@@ -19,41 +23,77 @@ Command pen_down() {
 }
 
 const char* PEN_COLOR_FORMAT = "PEN_COLOR %-2u %-2u %-2u\n";
-Command pen_color(char red, char green, char blue) {
-	char* format = malloc((char) * 22);
-	sprintf(PEN_COLOR_FORMAT, red, green, blue);
+Command pen_color(int8_t red, int8_t green, int8_t blue) {
+	int length = 22;
+	char* text = malloc(sizeof(char) * length);
+	sprintf(text, PEN_COLOR_FORMAT, red, green, blue);
 	Command output = {
-		.text = sprintf(PEN_COLOR_FORMAT, red, green, blue),
-		.length = 22
+		.text = text,
+		.length = length
 	};
 	return output;
 }
 
-
-const char* CYCLE_PEN_COLORS = "CYCLE_PEN_COLORS %s\n";
-const char* ROTATE_JOINT = "ROTATE_JOINT ANG1 %.2f ANG2 %.2f\n";
-const char* CLEAR_TRACE = "CLEAR_TRACE\n";
-const char* CLEAR_LOG = "CLEAR_LOG\n";
-const char* SHUTDOWN_SIMULATION = "SHUTDOWN_SIMULATION\n";
-const char* MOTOR_SPEED = "MOTOR_SPEED %s\n";
-const char* HOME = "HOME\n";
-const char* END = "END\n";
-
-Scara previous_state = {
-	.theta_1 = 0.0,
-	.theta_2 = 0.0,
-	.is_pen_down = false
-};
-
-bool cycling_pen_colors = false;
-
-void enable_color_cycling() {
-	cycling_pen_colors = true;
+Command cycle_pen_color(bool enable) {
+	Command output = {
+		.text = enable ?  "CYCLE_PEN_COLORS ON\n" :  "CYCLE_PEN_COLORS OFF\n",
+		.length = enable ? 20 : 21
+	};
+	return output;
 }
 
-void disable_color_cycling() {
-	cycling_pen_colors = false;
+// Movement Commands
+// TODO: Does this exist?
+// const char* MOTOR_SPEED = "MOTOR_SPEED %s\n";
+const char* ROTATE_JOINT_FORMAT = "ROTATE_JOINT ANG1 %-3.2f ANG2 %-3.2f\n";
+Command rotate_joint(float angle_1, float angle_2) {
+	int length = 37;
+	char* text = malloc(sizeof(char) * length);
+	sprintf(text, ROTATE_JOINT_FORMAT, angle_1, angle_2);
+	Command output = {
+		.text = text,
+		.length = length
+	};
+	return output;
 }
 
+Command home() {
+	Command output = {
+		.text = "HOME\n",
+		.length = 5
+	};
+	return output;
+}
 
+Command end() {
+	Command output = {
+		.text = "END\n",
+		.length = 4
+	};
+	return output;
+}
 
+// Simulator Metacommands
+Command clear_trace() {
+	Command output = {
+		.text = "CLEAR_TRACE\n",
+		.length = 12
+	};
+	return output;
+}
+
+Command clear_log() {
+	Command output = {
+		.text = "CLEAR_LOG\n",
+		.length = 10
+	};
+	return output;
+}
+
+Command shutdown_simulator() {
+	Command output = {
+		.text = "SHUTDOWN_SIMULATION\n",
+		.length = 20
+	};
+	return output;
+}

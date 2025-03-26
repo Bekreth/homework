@@ -3,7 +3,7 @@
 
 #include "scara_state.h"
 
-move_scara_fk();
+void move_scara_fk();
 
 #endif
 

@@ -1,13 +1,10 @@
 #ifndef COMMANDS_H
 #define COMMANDS_H
 
+#include <stdbool.h>
+#include <stdint.h>
+
 #include "kinematics.h"
-
-void enable_color_cycling();
-void disable_color_cycling();
-
-// TODO: Add TCP connection
-void send_state(Scara*);
 
 typedef struct Command {
 	char* text;
@@ -15,9 +12,21 @@ typedef struct Command {
 } Command;
 
 
+// Pen Commands
 Command pen_up();
 Command pen_down();
 Command pen_color(int8_t red, int8_t green, int8_t blue);
+Command cycle_pen_color(bool enable);
+
+// Movement Commands
+Command rotate_joint(float angle_1, float angle_2);
+Command home();
+Command end();
+
+// Simulator Metacommands
+Command clear_trace();
+Command clear_log();
+Command simulator_shutdown();
 
 #endif
 

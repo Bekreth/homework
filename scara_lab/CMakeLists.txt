@@ -19,6 +19,11 @@ target_include_directories(
 	${PROJECT_SOURCE_DIR}/src/kinematics/
 )
 
+target_include_directories(
+	test_suite PRIVATE
+	${PROJECT_SOURCE_DIR}/test/kinematics/
+)
+
 install(
 	TARGETS scara_lab DESTINATION "."
 	RUNTIME DESTINATION bin
@@ -27,8 +32,20 @@ install(
 )
 
 add_subdirectory(src)
-target_link_libraries(scara_lab exe kinematics network)
+target_link_libraries(
+	scara_lab exe
+	kinematics network
+)
 
 add_subdirectory(test)
-target_link_libraries(test_suite test_exe)
+target_link_libraries(
+	test_suite test_exe 
+	test_kinematics kinematics 
+)
 
+
+find_library(MATH_LIBRARY m)
+if(MATH_LIBRARY)
+	target_link_libraries(scara_lab ${MATH_LIBRARY})
+	target_link_libraries(test_suite ${MATH_LIBRARY})
+endif()

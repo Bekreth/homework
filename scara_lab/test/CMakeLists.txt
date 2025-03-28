@@ -11,4 +11,6 @@ add_library(
 )
 
 target_link_libraries(test_exe cmocka::cmocka)
-target_include_directories(test_exe PUBLIC ../src)
+target_include_directories(test_exe PUBLIC ${PROJECT_SOURCE_DIR}/src)
+
+add_subdirectory(kinematics)

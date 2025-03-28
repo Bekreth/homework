@@ -1,9 +1,12 @@
 #ifndef FORWARD_KINEMATICS_H
 #define FORWARD_KINEMATICS_H
 
-#include "scara_state.h"
+#include "limits.h"
 
-void move_scara_fk();
+/**
+ * move_scara_fk expects input as degrees
+ */
+int move_scara_fk(float, float, float*, float*);
 
 #endif
 

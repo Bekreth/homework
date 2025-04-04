@@ -9,6 +9,7 @@
 
 void ik_movement_length_bounds(void **state);
 void ik_movement_max_reach(void **state);
+void ik_movement_offangle_reach(void **state);
 
 int run_ik_tests(); 
 

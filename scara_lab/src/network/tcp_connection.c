@@ -8,6 +8,7 @@
 #include "tcp_connection.h"
 
 #define MAX_MESSAGE_SIZE 256
+#define SERVER_PORT_1 9090
 #define SERVER_PORT 1270
 
 int socket_file_descriptor = 0;
@@ -24,11 +25,14 @@ void create_connection() {
 }
 
 #include <stdio.h>
+#include<unistd.h>
 void send_commands(Command commands[], int length) {
 	for (int i = 0; i < length; i++) {
 		//TODO: Who cares about errors anyway!
 		printf(commands[i].text);
 		int error_code = write(socket_file_descriptor, commands[i].text, commands[i].length);
+		sleep(2);
+		printf("Error Code : %d\n\n", error_code);
 	}
 }
 

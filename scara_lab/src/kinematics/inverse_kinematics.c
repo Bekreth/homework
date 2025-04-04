@@ -20,7 +20,7 @@ bool calculate_scara_ik(
 		return false;
 	}
 
-	float offset_angle = atan2(y_pos, y_pos);
+	float offset_angle = atan2(y_pos, x_pos);
 	if (straight_length == MAXIMUM_LENGTH) {
 		return one_arm_ik(offset_angle, angle_1, angle_2);
 	} else {
@@ -52,22 +52,26 @@ bool two_arm_ik(
 	float* angle_1, float* angle_2,
 	Handedness handedness
 ) {
-	float major_numerator = pow(ARM_LENGTH_2, 2) + pow(straight_length, 2) - pow(ARM_LENGTH_1, 2);
-	float major_denomenator = 2 * ARM_LENGTH_2 * straight_length;
-	float major_angle = major_numerator / major_denomenator;
+	float major_numerator = pow(straight_length, 2) + pow(ARM_LENGTH_1, 2)- pow(ARM_LENGTH_2, 2);
+	float major_denomenator = 2 * ARM_LENGTH_1 * straight_length;
+	float major_angle = acos(major_numerator / major_denomenator);
+	//bool adjust_major_angle = offset_angle >= 90.0;
+	//float major_angle = adjust_major_angle  ? : acos(major_numerator / major_denomenator);
 
-	float minor_numerator = pow(ARM_LENGTH_2, 2) + pow(ARM_LENGTH_1, 2) - pow(straight_length, 2);
+	float minor_numerator = pow(ARM_LENGTH_1, 2) + pow(ARM_LENGTH_2, 2) - pow(straight_length, 2);
 	float minor_denomenator = 2 * ARM_LENGTH_1 + ARM_LENGTH_2;
-	float minor_angle = minor_numerator / minor_denomenator;
+	float minor_angle = acos(minor_numerator / minor_denomenator);
+	//bool adjust_minor_angle = offset_angle <= -90.0;
+	//float minor_angle = adjust_minor_angle ? : acos(minor_numerator / minor_denomenator);
 
 	float possible_angle_1;
 	float possible_angle_2;
 	if (handedness == Right) {
-		possible_angle_1 = offset_angle + major_angle;
-		possible_angle_2 = -1.0 * minor_angle;
+		possible_angle_1 = (offset_angle - major_angle) * (180.0 / M_PI);
+		possible_angle_2 = (minor_angle) * (180 / M_PI );
 	} else if (handedness == Left) {
-		possible_angle_1 = offset_angle - major_angle;
-		possible_angle_2 = minor_angle;
+		possible_angle_1 = (offset_angle + major_angle) * (180.0 / M_PI );
+		possible_angle_2 = (-1.0 * minor_angle) * (180.0 / M_PI);
 	}
 
 	if (abs(possible_angle_1) > MAX_ANGLE_1) {

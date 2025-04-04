@@ -42,17 +42,14 @@ Command cycle_pen_color(bool enable) {
 	return output;
 }
 
-// Movement Commands
-// TODO: Does this exist?
-// const char* MOTOR_SPEED = "MOTOR_SPEED %s\n";
-const char* ROTATE_JOINT_FORMAT = "ROTATE_JOINT ANG1 %-3.2f ANG2 %-3.2f\n";
+const char* ROTATE_JOINT_FORMAT = "ROTATE_JOINT ANG1 %-6.2f ANG2 %-6.2f\n";
 Command rotate_joint(float angle_1, float angle_2) {
-	int length = 37;
+	int length = 38;
 	char* text = malloc(sizeof(char) * length);
 	sprintf(text, ROTATE_JOINT_FORMAT, angle_1, angle_2);
 	Command output = {
 		.text = text,
-		.length = length
+		.length = length - 1
 	};
 	return output;
 }

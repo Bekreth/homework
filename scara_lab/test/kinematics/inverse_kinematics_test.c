@@ -7,6 +7,7 @@
 const struct CMUnitTest inverse_kinematics_tests[] = {
 	cmocka_unit_test(ik_movement_length_bounds),
 	cmocka_unit_test(ik_movement_max_reach),
+	cmocka_unit_test(ik_movement_offangle_reach),
 };
 
 int run_ik_tests() {
@@ -49,27 +50,77 @@ void ik_movement_max_reach(void **state) {
 	assert_float_equal(actual_angle_2, 0.0, 0.001);
 
 
-	// Y- Max
-	in_range = calculate_scara_ik(0.0, 600.0, &actual_angle_1, &actual_angle_2, Right);
-	assert_true(in_range);
-	assert_float_equal(actual_angle_1, 3/2 * M_PI, 0.001);
-	assert_float_equal(actual_angle_2, 0.0, 0.001);
-
-	in_range = calculate_scara_ik(600.0, 0.0, &actual_angle_1, &actual_angle_2, Left);
-	assert_true(in_range);
-	assert_float_equal(actual_angle_1, 3/2 * M_PI, 0.001);
-	assert_float_equal(actual_angle_2, 0.0, 0.001);
-
-
 	// Y+ Max
 	in_range = calculate_scara_ik(0.0, 600.0, &actual_angle_1, &actual_angle_2, Right);
 	assert_true(in_range);
 	assert_float_equal(actual_angle_1, 1/2 * M_PI, 0.001);
 	assert_float_equal(actual_angle_2, 0.0, 0.001);
 
-	in_range = calculate_scara_ik(600.0, 0.0, &actual_angle_1, &actual_angle_2, Left);
+	in_range = calculate_scara_ik(0.0, 600.0, &actual_angle_1, &actual_angle_2, Left);
 	assert_true(in_range);
 	assert_float_equal(actual_angle_1, 1/2 * M_PI, 0.001);
 	assert_float_equal(actual_angle_2, 0.0, 0.001);
+
+
+	// Y- Max
+	in_range = calculate_scara_ik(0.0, -600.0, &actual_angle_1, &actual_angle_2, Right);
+	assert_true(in_range);
+	assert_float_equal(actual_angle_1, -1/2 * M_PI, 0.001);
+	assert_float_equal(actual_angle_2, 0.0, 0.001);
+
+	in_range = calculate_scara_ik(0.0, -600.0, &actual_angle_1, &actual_angle_2, Left);
+	assert_true(in_range);
+	assert_float_equal(actual_angle_1, -1/2 * M_PI, 0.001);
+	assert_float_equal(actual_angle_2, 0.0, 0.001);
+
+}
+
+void ik_movement_offangle_reach(void **state) {
+	float actual_angle_1 = 0;
+	float actual_angle_2 = 0;
+
+	// 90 degree in Q1
+	bool in_range = calculate_scara_ik(350.0, 250.0, &actual_angle_1, &actual_angle_2, Right);
+	assert_true(in_range);
+	assert_float_equal(actual_angle_1, 0.0, 0.01);
+	assert_float_equal(actual_angle_2, 90.0, 0.01);
+
+	in_range = calculate_scara_ik(350.0, 250.0, &actual_angle_1, &actual_angle_2, Left);
+	assert_true(in_range);
+	assert_float_equal(actual_angle_1, 71.08, 0.01);
+	assert_float_equal(actual_angle_2, -90.0, 0.01);
+
+	// 90 degree in Q4
+	in_range = calculate_scara_ik(350.0, -250.0, &actual_angle_1, &actual_angle_2, Right);
+	assert_true(in_range);
+	assert_float_equal(actual_angle_1, -71.08, 0.01);
+	assert_float_equal(actual_angle_2, 90.0, 0.01);
+
+	in_range = calculate_scara_ik(350.0, -250.0, &actual_angle_1, &actual_angle_2, Left);
+	assert_true(in_range);
+	assert_float_equal(actual_angle_1, 0.0, 0.01);
+	assert_float_equal(actual_angle_2, -90.0, 0.01);
+
+	// 90 degree in Q2
+	in_range = calculate_scara_ik(-250.0, 350.0, &actual_angle_1, &actual_angle_2, Right);
+	assert_true(in_range);
+	assert_float_equal(actual_angle_1, 90.0, 0.01);
+	assert_float_equal(actual_angle_2, 90.0, 0.01);
+
+	in_range = calculate_scara_ik(-250.0, 350.0, &actual_angle_1, &actual_angle_2, Left);
+	assert_false(in_range);
+	assert_float_equal(actual_angle_1, 90.0, 0.01);
+	assert_float_equal(actual_angle_2, 90.0, 0.01);
+
+	// 90 degree in Q3
+	in_range = calculate_scara_ik(-250.0, -350.0, &actual_angle_1, &actual_angle_2, Right);
+	assert_false(in_range);
+	assert_float_equal(actual_angle_1, 90.0, 0.01);
+	assert_float_equal(actual_angle_2, 90.0, 0.01);
+
+	in_range = calculate_scara_ik(-250.0, -350.0, &actual_angle_1, &actual_angle_2, Left);
+	assert_true(in_range);
+	assert_float_equal(actual_angle_1, -90.0, 0.01);
+	assert_float_equal(actual_angle_2, -90.0, 0.01);
 
 }

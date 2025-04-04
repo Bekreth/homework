@@ -4,7 +4,7 @@
 #include "forward_kinematics.h"
 
 
-int move_scara_fk(
+int calculate_scara_fk(
 	float angle1, float angle2, 
 	float* x_position, float* y_position
 ) {

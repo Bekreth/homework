@@ -42,9 +42,9 @@ Command cycle_pen_color(bool enable) {
 	return output;
 }
 
-const char* ROTATE_JOINT_FORMAT = "ROTATE_JOINT ANG1 %-6.2f ANG2 %-6.2f\n";
+const char* ROTATE_JOINT_FORMAT = "ROTATE_JOINT ANG1 %7.2f ANG2 %7.2f\n";
 Command rotate_joint(float angle_1, float angle_2) {
-	int length = 38;
+	int length = 40;
 	char* text = malloc(sizeof(char) * length);
 	sprintf(text, ROTATE_JOINT_FORMAT, angle_1, angle_2);
 	Command output = {

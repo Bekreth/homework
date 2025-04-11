@@ -19,6 +19,7 @@
 * inRange - (0) in range, (-1) out of range
 *
 *****************************************************************************************/
+//TODO: Replace with bool
 int calculate_scara_fk(float, float, float*, float*);
 
 #endif

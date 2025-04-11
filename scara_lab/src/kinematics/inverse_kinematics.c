@@ -28,6 +28,7 @@ bool calculate_scara_ik(
 	}
 }
 
+// Verfiy that the specified length is achievable
 bool valid_length(float straight_length) {
 	if (straight_length < MINIMUM_LENGTH) {
 		return false;

@@ -8,6 +8,10 @@ const struct CMUnitTest inverse_kinematics_tests[] = {
 	cmocka_unit_test(ik_movement_length_bounds),
 	cmocka_unit_test(ik_movement_max_reach),
 	cmocka_unit_test(ik_movement_offangle_reach),
+	cmocka_unit_test(ik_movement_q1),
+	cmocka_unit_test(ik_movement_q2),
+	cmocka_unit_test(ik_movement_q3),
+	cmocka_unit_test(ik_movement_q4)
 };
 
 int run_ik_tests() {
@@ -123,4 +127,70 @@ void ik_movement_offangle_reach(void **state) {
 	assert_float_equal(actual_angle_1, -90.0, 0.01);
 	assert_float_equal(actual_angle_2, -90.0, 0.01);
 
+}
+
+void ik_movement_q1(void **state) {
+	float actual_angle_1 = 0;
+	float actual_angle_2 = 0;
+
+	bool in_range = calculate_scara_ik(350.0, 200.0, &actual_angle_1, &actual_angle_2, Right);
+	assert_true(in_range);
+	assert_float_equal(actual_angle_1, -8.21, 0.01);
+	assert_float_equal(actual_angle_2, 97.39, 0.01);
+
+	actual_angle_1 = 0;
+	actual_angle_2 = 0;
+	in_range = calculate_scara_ik(350.0, 200.0, &actual_angle_1, &actual_angle_2, Left);
+	assert_true(in_range);
+	assert_float_equal(actual_angle_1, 67.70, 0.01);
+	assert_float_equal(actual_angle_2, -97.39, 0.01);
+
+}
+
+void ik_movement_q2(void **state) {
+	float actual_angle_1 = 0;
+	float actual_angle_2 = 0;
+
+	bool in_range = calculate_scara_ik(-350.0, 200.0, &actual_angle_1, &actual_angle_2, Right);
+	assert_true(in_range);
+	assert_float_equal(actual_angle_1, 112.30, 0.01);
+	assert_float_equal(actual_angle_2, 97.39, 0.01);
+
+	actual_angle_1 = 0;
+	actual_angle_2 = 0;
+	in_range = calculate_scara_ik(-350.0, 200.0, &actual_angle_1, &actual_angle_2, Left);
+	assert_false(in_range);
+}
+
+void ik_movement_q3(void **state) {
+	float actual_angle_1 = 0;
+	float actual_angle_2 = 0;
+
+	bool in_range = calculate_scara_ik(-350.0, -200.0, &actual_angle_1, &actual_angle_2, Right);
+	assert_false(in_range);
+
+	actual_angle_1 = 0;
+	actual_angle_2 = 0;
+	in_range = calculate_scara_ik(-350.0, -200.0, &actual_angle_1, &actual_angle_2, Left);
+	assert_true(in_range);
+	assert_float_equal(actual_angle_1, -112.30, 0.01);
+	assert_float_equal(actual_angle_2, -97.39, 0.01);
+
+}
+
+void ik_movement_q4(void **state) {
+	float actual_angle_1 = 0;
+	float actual_angle_2 = 0;
+
+	bool in_range = calculate_scara_ik(350.0, -200.0, &actual_angle_1, &actual_angle_2, Right);
+	assert_true(in_range);
+	assert_float_equal(actual_angle_1, -67.60, 0.1);
+	assert_float_equal(actual_angle_2, 97.39, 0.01);
+
+	actual_angle_1 = 0;
+	actual_angle_2 = 0;
+	in_range = calculate_scara_ik(350.0, -200.0, &actual_angle_1, &actual_angle_2, Left);
+	assert_true(in_range);
+	assert_float_equal(actual_angle_1, 8.21, 0.01);
+	assert_float_equal(actual_angle_2, -97.39, 0.01);
 }

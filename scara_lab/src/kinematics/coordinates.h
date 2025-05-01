@@ -6,5 +6,7 @@ typedef struct Coordinate {
 	float y_pos;
 } Coordinate;
 
+float slope(Coordinate, Coordinate);
+
 #endif
 

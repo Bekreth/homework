@@ -5,4 +5,5 @@ add_library(
 
 add_subdirectory(network)
 add_subdirectory(kinematics)
+add_subdirectory(line)
 

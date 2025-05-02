@@ -1,7 +1,7 @@
 #ifndef INTENT_PARSER_H
 #define INTENT_PARSER_H
 
-#include "commands.h"
+#include "network.h"
 #include "tokens.h"
 
 

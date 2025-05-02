@@ -54,6 +54,15 @@ Command rotate_joint(float angle_1, float angle_2) {
 	return output;
 }
 
+Command motor_speed(MotorSpeed motor_speed) {
+	//TODO:
+	Command output = {
+		.text = "HOME\n",
+		.length = 5
+	};
+	return output;
+}
+
 Command home() {
 	Command output = {
 		.text = "HOME\n",

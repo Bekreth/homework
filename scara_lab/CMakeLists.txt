@@ -7,6 +7,7 @@ add_executable(
 	${PROJECT_SOURCE_DIR}/src/network/network.h
 	${PROJECT_SOURCE_DIR}/src/kinematics/kinematics.h
 	${PROJECT_SOURCE_DIR}/src/line/line.h
+	${PROJECT_SOURCE_DIR}/src/user_interface/user_interface.h
 )
 add_executable(test_suite test/main.c)
 
@@ -26,6 +27,12 @@ target_include_directories(
 )
 
 target_include_directories(
+	scara_lab PRIVATE
+	${PROJECT_SOURCE_DIR}/src/user_interface/
+)
+
+
+target_include_directories(
 	test_suite PRIVATE
 	${PROJECT_SOURCE_DIR}/test/kinematics/
 )
@@ -43,6 +50,7 @@ target_link_libraries(
 	kinematics 
 	network
 	line
+	user_interface
 )
 
 add_subdirectory(test)

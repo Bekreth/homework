@@ -5,6 +5,5 @@
 #include "forward_kinematics.h"
 #include "inverse_kinematics.h"
 #include "path.h"
-#include "scara_state.h"
 
 #endif

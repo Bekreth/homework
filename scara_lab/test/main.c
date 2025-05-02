@@ -1,7 +1,7 @@
 #include "scara_test.h"
 #include "forward_kinematics_test.h"
 #include "inverse_kinematics_test.h"
-#include "path_divider_test.h"
+#include "path_test.h"
 
 
 int main() {

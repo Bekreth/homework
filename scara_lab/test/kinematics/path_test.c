@@ -1,6 +1,6 @@
 #include <math.h>
 
-#include "path_divider_test.h"
+#include "path_test.h"
 
 #include "kinematics.h"
 

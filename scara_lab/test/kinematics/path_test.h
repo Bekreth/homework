@@ -1,5 +1,5 @@
-#ifndef PATH_DIVIDER_TEST_H
-#define PATH_DIVIDER_TEST_H
+#ifndef PATH_TEST_H
+#define PATH_TEST_H
 
 #include <stdarg.h>
 #include <stddef.h>

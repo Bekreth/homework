@@ -4,7 +4,7 @@
 #include "coordinates.h"
 #include "forward_kinematics.h"
 #include "inverse_kinematics.h"
-#include "path_divider.h"
+#include "path.h"
 #include "scara_state.h"
 
 #endif

@@ -1,4 +1,4 @@
-#include "path_divider.h"
+#include "path.h"
 
 void divide_path(
 	Coordinate starting_position, Coordinate ending_position, 

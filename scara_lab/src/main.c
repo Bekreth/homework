@@ -1,11 +1,29 @@
 #include <stdbool.h>
+#include <string.h>
 
 #include "scara_lab.h"
 #include "network.h"
 #include "commands.h"
 
+#include "tokens.h"
+
+
 int main() {
+	ScaraRobot robot = new_scara_robot();
 	create_connection();
+
+	while (true) {
+		char user_input[1000];
+		scanf("%[^\n]", user_input);
+		Tokens tokens = new_tokens();
+		char* tokenized = strtok(user_input, " ,");
+		while (tokenized != NULL) {
+			add_token(&tokens, tokenized);
+		}
+		return 0;
+	}
+
+	
 
 	float angle_1;
 	float angle_2;
@@ -31,7 +49,6 @@ int main() {
 			send_commands(commands_fk, 1);
 		}
 	}
-
 
 	printf("Starting IK.  Enter 999,999 to exit\n");
 	while (true) {

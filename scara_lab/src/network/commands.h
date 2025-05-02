@@ -7,10 +7,14 @@
 #include "kinematics.h"
 
 typedef struct Command {
-	char* text;
 	int length;	
+	char* text;
 } Command;
 
+typedef struct Commands {
+	int length;
+	Command* commands;
+} Commands;
 
 // Pen Commands
 Command pen_up();

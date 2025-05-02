@@ -6,6 +6,6 @@ add_library(
 	coordinates.c coordinates.h
 	forward_kinematics.c forward_kinematics.h
 	inverse_kinematics.c inverse_kinematics.h
-	path_divider.c path_divider.h
+	path.c path.h
 )
 

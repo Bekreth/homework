@@ -7,4 +7,5 @@ add_subdirectory(network)
 add_subdirectory(kinematics)
 add_subdirectory(line)
 add_subdirectory(user_interface)
+add_subdirectory(path_planner)
 

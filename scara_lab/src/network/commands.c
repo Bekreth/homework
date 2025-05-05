@@ -54,11 +54,29 @@ Command rotate_joint(float angle_1, float angle_2) {
 	return output;
 }
 
+const char* MOTOR_SPEED_HIGH = "MOTOR_SPEED HIGH\n";
+const char* MOTOR_SPEED_MEDIUM = "MOTOR_SPEED MEDIUM\n";
+const char* MOTOR_SPEED_LOW = "MOTOR_SPEED LOW\n";
 Command motor_speed(MotorSpeed motor_speed) {
-	//TODO:
+	char* text;
+	int length;
+	switch (motor_speed) {
+		case High:
+			text = MOTOR_SPEED_HIGH;
+			length = 17;
+			break;
+		case Medium:
+			text = MOTOR_SPEED_MEDIUM;
+			length = 19;
+			break;
+		case Low:
+			text = MOTOR_SPEED_LOW;
+			length = 16;
+			break;
+	}
 	Command output = {
-		.text = "HOME\n",
-		.length = 5
+		.text = text,
+		.length = length
 	};
 	return output;
 }

@@ -6,7 +6,7 @@
 void create_connection();
 void destroy_connection();
 
-void send_commands(Command[], int);
+void send_commands(Commands);
 
 #endif
 

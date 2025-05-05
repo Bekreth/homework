@@ -8,6 +8,7 @@ add_executable(
 	${PROJECT_SOURCE_DIR}/src/kinematics/kinematics.h
 	${PROJECT_SOURCE_DIR}/src/line/line.h
 	${PROJECT_SOURCE_DIR}/src/user_interface/user_interface.h
+	${PROJECT_SOURCE_DIR}/src/path_planner/path_planner.h
 )
 add_executable(test_suite test/main.c)
 
@@ -23,6 +24,11 @@ target_include_directories(
 
 target_include_directories(
 	scara_lab PRIVATE
+	${PROJECT_SOURCE_DIR}/src/path_planner/
+)
+
+target_include_directories(
+	scara_lab PRIVATE
 	${PROJECT_SOURCE_DIR}/src/line/
 )
 
@@ -32,9 +38,15 @@ target_include_directories(
 )
 
 
+## Test Suite
 target_include_directories(
 	test_suite PRIVATE
 	${PROJECT_SOURCE_DIR}/test/kinematics/
+)
+
+target_include_directories(
+	test_suite PRIVATE
+	${PROJECT_SOURCE_DIR}/test/path_planner/
 )
 
 install(
@@ -51,12 +63,14 @@ target_link_libraries(
 	network
 	line
 	user_interface
+	path_planner
 )
 
 add_subdirectory(test)
 target_link_libraries(
 	test_suite test_exe 
 	test_kinematics kinematics 
+	test_path_planner path_planner 
 )
 
 

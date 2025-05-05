@@ -1,11 +1,12 @@
 #include <stdbool.h>
 #include <string.h>
+#include <stdio.h>
 
 #include "scara_lab.h"
 #include "network.h"
 #include "commands.h"
 
-#include "tokens.h"
+#include "user_interface.h"
 
 
 int main() {
@@ -13,6 +14,7 @@ int main() {
 	create_connection();
 
 	while (true) {
+		printf("SCARA Driver > ");
 		char user_input[1000];
 		scanf("%[^\n]", user_input);
 		Tokens tokens = new_tokens();
@@ -20,10 +22,31 @@ int main() {
 		while (tokenized != NULL) {
 			add_token(&tokens, tokenized);
 		}
-		return 0;
+
+		Intent intent = parse_tokens(&tokens);
+		//TODO: Seems unlikely that this works
+		if (intent.error.error_code == 0) {
+			if (intent.error.error_code == 0) {
+				printf("Closing SCARA Driver. Thank you\n");
+				sleep(2);
+				break;
+			} else {
+				printf(
+					"Unable to process command due to error [%d]: %s\n",
+					intent.error.error_code,
+					intent.error.error_message
+				);
+				continue;
+			}
+		}
+		send_commands(intent.commands);
 	}
 
+	destroy_connection();
+	return 0;
+}
 	
+/*
 
 	float angle_1;
 	float angle_2;
@@ -81,3 +104,5 @@ int main() {
 	destroy_connection();
 	return 0;
 }
+
+*/

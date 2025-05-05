@@ -1,8 +1,8 @@
 #include <math.h>
 
-#include "path_test.h"
+#include "path_planner_test.h"
 
-#include "kinematics.h"
+#include "path_planner.h"
 
 const struct CMUnitTest path_divider_tests[] = {
 	cmocka_unit_test(path_divider_test),

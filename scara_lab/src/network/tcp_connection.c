@@ -26,13 +26,11 @@ void create_connection() {
 
 #include <stdio.h>
 #include<unistd.h>
-void send_commands(Command commands[], int length) {
-	for (int i = 0; i < length; i++) {
+void send_commands(Commands commands) {
+	for (int i = 0; i < commands.length; i++) {
 		//TODO: Who cares about errors anyway!
-		printf(commands[i].text);
-		int error_code = write(socket_file_descriptor, commands[i].text, commands[i].length);
-		sleep(2);
-		printf("Error Code : %d\n\n", error_code);
+		printf(commands.commands[i].text);
+		int error_code = write(socket_file_descriptor, commands.commands[i].text, commands.commands[i].length);
 	}
 }
 

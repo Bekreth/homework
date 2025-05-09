@@ -18,7 +18,6 @@ Intent process_speed(Tokens*);
 
 Intent process_quit();
 
-
 Intent parse_tokens(Tokens* tokens) {
 	Intent output;
 	char* token = tokens->tokens[0]; 
@@ -55,6 +54,15 @@ IntentError bad_argument_count() {
 }
 
 Intent process_move_j(Tokens* tokens) {
+	Intent output;
+	if (tokens->length != 3) {
+		output.error = bad_argument_count();
+		return output;
+	}
+	//TODO
+}
+
+Intent process_move_l(Tokens* tokens) {
 	Intent output;
 	if (tokens->length != 3) {
 		output.error = bad_argument_count();
@@ -134,15 +142,16 @@ Intent process_speed(Tokens* tokens) {
 	switch (tokens->tokens[1][0]) {
 		case 'h':
 		case 'H':
-			motor_command[0] = motor_speed(High);
+			// TODO:
+			//motor_command[0] = set_motor_speed(High);
 			break;
 		case 'm':
 		case 'M':
-			motor_command[0] = motor_speed(Medium);
+			//motor_command[0] = set_motor_speed(Medium);
 			break;
 		case 'l':
 		case 'L':
-			motor_command[0] = motor_speed(Low);
+			//motor_command[0] = set_motor_speed(Low);
 			break;
 		default:
 			IntentError error = {
@@ -166,3 +175,4 @@ Intent process_quit() {
 	};
 	return output;
 }
+

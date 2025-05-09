@@ -30,7 +30,7 @@ Command cycle_pen_color(bool enable);
 
 // Movement Commands
 Command rotate_joint(float angle_1, float angle_2);
-Command motor_speed(MotorSpeed);
+Command set_motor_speed(MotorSpeed);
 Command home();
 Command end();
 

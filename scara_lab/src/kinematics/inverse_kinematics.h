@@ -5,10 +5,6 @@
 
 #include "limits.h"
 
-typedef enum Handedness {
-	Left,
-	Right,
-} Handedness ;
 
 /****************************************************************************************
 * Function: scaraIK

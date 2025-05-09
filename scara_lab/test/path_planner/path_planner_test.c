@@ -18,11 +18,6 @@ int run_path_tests() {
 }
 
 void path_divider_test(void **state) {
-	Coordinate** coordinates = malloc(sizeof(Coordinate*) * 10);
-	for (int i = 0; i < 10; i++) {
-		coordinates[i] = malloc(sizeof(Coordinate));
-	}
-
 	Coordinate starting_point = {
 		.x_pos = 2.0,
 		.y_pos = 2.0,
@@ -33,7 +28,7 @@ void path_divider_test(void **state) {
 		.y_pos = 22.0,
 	};
 
-	divide_path(starting_point, ending_point, 8, coordinates);
+	Coordinates actual_coordinates = divide_path(starting_point, ending_point, 8);
 	
 	Coordinate expected_coordinates[10] = {
 		starting_point,
@@ -77,7 +72,7 @@ void path_divider_test(void **state) {
 	};
 
 	for (int i = 0; i < 10; i++) {
-		assert_float_equal(coordinates[i]->x_pos, expected_coordinates[i].x_pos, 0.01);
-		assert_float_equal(coordinates[i]->y_pos, expected_coordinates[i].y_pos, 0.01);
+		assert_float_equal(actual_coordinates.coordinates[i].x_pos, expected_coordinates[i].x_pos, 0.01);
+		assert_float_equal(actual_coordinates.coordinates[i].y_pos, expected_coordinates[i].y_pos, 0.01);
 	}
 }

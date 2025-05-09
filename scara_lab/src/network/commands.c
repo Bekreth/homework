@@ -57,7 +57,7 @@ Command rotate_joint(float angle_1, float angle_2) {
 const char* MOTOR_SPEED_HIGH = "MOTOR_SPEED HIGH\n";
 const char* MOTOR_SPEED_MEDIUM = "MOTOR_SPEED MEDIUM\n";
 const char* MOTOR_SPEED_LOW = "MOTOR_SPEED LOW\n";
-Command motor_speed(MotorSpeed motor_speed) {
+Command set_motor_speed(MotorSpeed motor_speed) {
 	char* text;
 	int length;
 	switch (motor_speed) {

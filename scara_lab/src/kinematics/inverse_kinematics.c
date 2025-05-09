@@ -2,6 +2,7 @@
 #include <math.h>
 
 #include "inverse_kinematics.h"
+#include "limits.h"
 
 const float MINIMUM_LENGTH = ARM_LENGTH_1 - ARM_LENGTH_2;
 const float MAXIMUM_LENGTH = ARM_LENGTH_1 + ARM_LENGTH_2;

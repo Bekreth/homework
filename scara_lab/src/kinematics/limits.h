@@ -7,15 +7,6 @@
 #define ARM_LENGTH_1 350.0
 #define ARM_LENGTH_2 250.0
 
-#include <stdbool.h>
-
-#include "coordinates.h"
-
-typedef enum Handedness {
-	Left,
-	Right,
-} Handedness;
-
 
 #endif
 

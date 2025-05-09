@@ -12,7 +12,7 @@ Tokens new_tokens() {
 }
 
 void add_token(Tokens* tokens, char* new_token) {
-	if (tokens->length = tokens->capacity) {
+	if (tokens->length == tokens->capacity) {
 		expand_tokens(tokens);
 	}
 	tokens->tokens[tokens->length] = new_token;

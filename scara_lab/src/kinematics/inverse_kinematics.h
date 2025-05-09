@@ -2,8 +2,7 @@
 #define INVERSE_KINEMATICS_H
 
 #include <stdbool.h>
-
-#include "limits.h"
+#include "handedness.h"
 
 
 /****************************************************************************************

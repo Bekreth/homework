@@ -4,8 +4,6 @@
 
 #include "scara_lab.h"
 #include "network.h"
-#include "commands.h"
-
 #include "user_interface.h"
 
 
@@ -16,17 +14,19 @@ int main() {
 	while (true) {
 		printf("SCARA Driver > ");
 		char user_input[1000];
-		scanf("%[^\n]", user_input);
+		scanf("%[^\n]%c", user_input);
 		Tokens tokens = new_tokens();
-		char* tokenized = strtok(user_input, " ,");
+		char* delimiter = " ";
+		char* tokenized = strtok(user_input, delimiter);
 		while (tokenized != NULL) {
 			add_token(&tokens, tokenized);
+			tokenized = strtok(NULL, delimiter);
 		}
 
-		Intent intent = parse_tokens(&tokens);
+		Intent intent = parse_tokens(&tokens, robot.handedness);
 		//TODO: Seems unlikely that this works
-		if (intent.error.error_code == 0) {
-			if (intent.error.error_code == 0) {
+		if (intent.error.error_code != 0) {
+			if (intent.error.error_code == 100) {
 				printf("Closing SCARA Driver. Thank you\n");
 				sleep(2);
 				break;

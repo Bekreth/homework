@@ -15,9 +15,9 @@
 Intent parse_tokens(Tokens* tokens, Handedness handedness) {
 	Intent output;
 	char* token = tokens->tokens[0]; 
-	if (strcmp(token, "movScaraJ") == 0) {
+	if (strcmp(token, "moveScaraJ") == 0) {
 		output = process_move_j(tokens, handedness);
-	} else if (strcmp(token, "movScaraL") == 0) {
+	} else if (strcmp(token, "moveScaraL") == 0) {
 		output = process_move_l(tokens, handedness);
 	} else if (strcmp(token, "scaraPenUp") == 0) {
 		output = process_pen_up(tokens);

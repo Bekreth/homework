@@ -7,6 +7,13 @@
 #define ARM_LENGTH_1 350.0
 #define ARM_LENGTH_2 250.0
 
+#define MINIMUM_LENGTH (ARM_LENGTH_1 - ARM_LENGTH_2)
+#define MAXIMUM_LENGTH (ARM_LENGTH_1 + ARM_LENGTH_2)
+
+#include <stdbool.h>
+
+bool valid_angles(float, float);
+bool valid_length(float);
 
 #endif
 

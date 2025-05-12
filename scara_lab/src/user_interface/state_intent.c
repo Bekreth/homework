@@ -4,7 +4,7 @@
 #include "validate_number.h"
 
 Intent process_pen_up(Tokens* tokens) {
-	Intent output;
+	Intent output = new_intent();
 	if (tokens->length != 1) {
 		output.error = bad_argument_count();
 		return output;
@@ -20,7 +20,7 @@ Intent process_pen_up(Tokens* tokens) {
 }
 
 Intent process_pen_down(Tokens* tokens) {
-	Intent output;
+	Intent output = new_intent();
 	if (tokens->length != 1) {
 		output.error = bad_argument_count();
 		return output;
@@ -36,7 +36,7 @@ Intent process_pen_down(Tokens* tokens) {
 }
 
 Intent process_pen_color(Tokens* tokens) {
-	Intent output;
+	Intent output = new_intent();
 	if (tokens->length != 4) {
 		output.error = bad_argument_count();
 		return output;
@@ -62,7 +62,7 @@ Intent process_pen_color(Tokens* tokens) {
 }
 
 Intent process_speed(Tokens* tokens) {
-	Intent output;
+	Intent output = new_intent();
 	if (tokens->length != 2) {
 		output.error = bad_argument_count();
 		return output;

@@ -4,12 +4,8 @@
 #include "inverse_kinematics.h"
 #include "limits.h"
 
-const float MINIMUM_LENGTH = ARM_LENGTH_1 - ARM_LENGTH_2;
-const float MAXIMUM_LENGTH = ARM_LENGTH_1 + ARM_LENGTH_2;
-
 bool one_arm_ik(float, float*, float*);
 bool two_arm_ik(float, float, float*, float*, Handedness);
-bool valid_length(float);
 void law_of_cosines(
 	float length_a, float length_b, float length_c, 
 	float* angle_a, float* angle_b, float* angle_c
@@ -33,24 +29,11 @@ bool calculate_scara_ik(
 	}
 }
 
-// Verfiy that the specified length is achievable
-bool valid_length(float straight_length) {
-	if (straight_length < MINIMUM_LENGTH) {
-		return false;
-	}
-	if (straight_length > MAXIMUM_LENGTH) {
-		return false;
-	}
-	return true;
-}
 
 bool one_arm_ik(float offset_angle, float* angle_1, float* angle_2) {
-	if (abs(offset_angle) > MAX_ANGLE_1) {
-		return false;
-	}
 	*angle_1 = offset_angle;
 	*angle_2 = 0.0;
-	return true;
+	return valid_angles(*angle_1, *angle_2);
 }
 
 bool two_arm_ik(
@@ -73,9 +56,7 @@ bool two_arm_ik(
 		possible_angle_2 = (-1.0 * (M_PI - minor_angle)) * (180.0 / M_PI);
 	}
 
-	if (abs(possible_angle_1) > MAX_ANGLE_1) {
-		return false;
-	} else if (abs(possible_angle_2) > MAX_ANGLE_2) {
+	if (!valid_angles(possible_angle_1, possible_angle_2)) {
 		return false;
 	}
 

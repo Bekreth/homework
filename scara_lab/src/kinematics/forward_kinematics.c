@@ -3,19 +3,13 @@
 
 #include "forward_kinematics.h"
 
-
 int calculate_scara_fk(
 	float angle1, float angle2, 
 	float* x_position, float* y_position
 ) {
-	if (abs(angle1) > MAX_ANGLE_1) {
-		//TODO : Replace this int with a meaningful enum
+	if (!valid_angles(angle1, angle2)) {
 		return 1;
 	}
-	if (abs(angle2) > MAX_ANGLE_2) {
-		return 2;
-	}
-
 
 	float angle1_radians = angle1 * (M_PI / 180.0);
 	float angle2_radians = (angle1 + angle2) * (M_PI / 180.0);

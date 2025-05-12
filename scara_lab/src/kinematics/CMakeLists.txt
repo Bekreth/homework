@@ -1,7 +1,7 @@
 add_library(
 	kinematics STATIC
 	kinematics.h
-	limits.h
+	limits.c limits.h
 	coordinates.c coordinates.h
 	handedness.c handedness.h
 	forward_kinematics.c forward_kinematics.h

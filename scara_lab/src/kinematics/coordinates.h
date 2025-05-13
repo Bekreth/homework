@@ -22,6 +22,7 @@ typedef struct Coordinates {
 float slope(Coordinate, Coordinate);
 void free_coordinates(Coordinates);
 Quadrant which_quadrant(Coordinate);
+Coordinate new_coordinate(float, float);
 Coordinate x_intercept(Coordinate, Coordinate);
 Coordinate y_intercept(Coordinate, Coordinate);
 

@@ -3,6 +3,8 @@
 #include <math.h>
 
 #include "network.h"
+#include "path_planner.h"
+#include "kinematics.h"
 
 #include "validate_number.h"
 #include "intent_parser.h"
@@ -30,10 +32,8 @@ Intent process_move_j(Tokens* tokens, Handedness current_hand) {
 		calculate_scara_ik(x_pos, y_pos, &angle_0, &angle_1, current_hand) ||
 		calculate_scara_ik(x_pos, y_pos, &angle_0, &angle_1, opposite_hand(current_hand))
 	) {
-		float degree_0 = 180.0 * angle_0 / M_PI;
-		float degree_1 = 180.0 * angle_1 / M_PI;
 		Command* move_command = malloc(sizeof(Command));
-		move_command[0] = rotate_joint(degree_0, degree_1);
+		move_command[0] = rotate_joint(angle_0, angle_1);
 		Commands out_commands = {
 			.length = 1,
 			.commands = move_command
@@ -66,4 +66,14 @@ Intent process_move_l(Tokens* tokens, Handedness current_hand) {
 	float x1_pos = atof(tokens->tokens[3]);
 	float y1_pos = atof(tokens->tokens[4]);
 	int subdivisions = atoi(tokens->tokens[5]);
+
+	Coordinate* coordinates = malloc(sizeof(Coordinate) * 2);
+	coordinates[0] = new_coordinate(x0_pos, y0_pos);
+	coordinates[1] = new_coordinate(x1_pos, y1_pos);
+	Coordinates start_and_end = {
+		.length = 2,
+		.coordinates = coordinates
+	};
+
+	PossiblePathings pathings = create_possible_paths(start_and_end);
 }

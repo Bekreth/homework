@@ -72,7 +72,6 @@ bool coordinate_is_accessible(Coordinate coordinate, Handedness handedness) {
 	return calculate_scara_ik(coordinate.x_pos, coordinate.y_pos, &dead_point_0, &dead_point_1, handedness);
 }
 
-
 bool crosses_critical_boundary(Quadrant q0, Quadrant q1) {
 	return (q0 == Q2 && q1 == Q3) || (q0 == Q3 && q1 == Q2);
 }

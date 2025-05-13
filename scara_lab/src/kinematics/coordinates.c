@@ -3,6 +3,14 @@
 
 #include "coordinates.h"
 
+Coordinate new_coordinate(float x, float y) {
+	Coordinate output = {
+		.x_pos = x,
+		.y_pos = y
+	};
+	return output;
+}
+
 float slope(Coordinate coordinate_0, Coordinate coordinate_1) {
 	float rise = coordinate_1.y_pos - coordinate_0.y_pos;
 	float run = coordinate_1.x_pos - coordinate_0.x_pos;

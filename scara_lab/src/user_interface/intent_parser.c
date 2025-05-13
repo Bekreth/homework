@@ -11,7 +11,6 @@
 #include "motion_intent.h"
 #include "state_intent.h"
 
-
 Intent parse_tokens(Tokens* tokens, Handedness handedness) {
 	Intent output;
 	char* token = tokens->tokens[0]; 

@@ -9,12 +9,17 @@ add_library(
 	validate_number.c validate_number.h 
 	${PROJECT_SOURCE_DIR}/src/network/network.h
 	${PROJECT_SOURCE_DIR}/src/kinematics/kinematics.h
+	${PROJECT_SOURCE_DIR}/src/path_planner/path_planner.h
 )
 
 target_include_directories(
 	user_interface PRIVATE
 	${PROJECT_SOURCE_DIR}/src/network/
 	${PROJECT_SOURCE_DIR}/src/kinematics/
+	${PROJECT_SOURCE_DIR}/src/path_planner/
 )
 
-target_link_libraries(user_interface kinematics network)
+target_link_libraries(
+	user_interface 
+	kinematics network path_planner
+)

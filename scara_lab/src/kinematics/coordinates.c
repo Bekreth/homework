@@ -58,3 +58,9 @@ Coordinate y_intercept(Coordinate coordinate_0, Coordinate coordinate_1) {
 	};
 	return output;
 }
+
+bool coordinates_equal(Coordinate coordinate_0, Coordinate coordinate_1) {
+	return 
+		(coordinate_0.x_pos == coordinate_1.x_pos) &&
+		(coordinate_0.y_pos == coordinate_1.y_pos);
+}

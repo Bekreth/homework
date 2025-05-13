@@ -10,7 +10,6 @@
 #include "intent_parser.h"
 #include "motion_intent.h"
 
-
 Intent process_move_j(Tokens* tokens, Handedness current_hand) {
 	Intent output = new_intent();
 	if (tokens->length != 3) {
@@ -45,6 +44,7 @@ Intent process_move_j(Tokens* tokens, Handedness current_hand) {
 	return output;	
 }
 
+
 Intent process_move_l(Tokens* tokens, Handedness current_hand) {
 	Intent output = new_intent();
 	if (tokens->length != 6) {
@@ -67,13 +67,66 @@ Intent process_move_l(Tokens* tokens, Handedness current_hand) {
 	float y1_pos = atof(tokens->tokens[4]);
 	int subdivisions = atoi(tokens->tokens[5]);
 
-	Coordinate* coordinates = malloc(sizeof(Coordinate) * 2);
-	coordinates[0] = new_coordinate(x0_pos, y0_pos);
-	coordinates[1] = new_coordinate(x1_pos, y1_pos);
-	Coordinates start_and_end = {
-		.length = 2,
-		.coordinates = coordinates
+	Coordinates points_along_path = divide_path(
+		new_coordinate(x0_pos, y0_pos),
+		new_coordinate(x1_pos, y1_pos),
+		subdivisions
+	);
+	PossiblePathings pathings = create_possible_paths(points_along_path);
+	int length = 0;
+	int capacity = pathings.length;
+	Commands commands = new_commands();
+
+	Coordinate current_coordinate = {
+		.x_pos = -999.0,
+		.y_pos = -999.0
 	};
 
-	PossiblePathings pathings = create_possible_paths(start_and_end);
+	float angle_0 = 0.0;
+	float angle_1 = 0.0;
+
+	for (int i = 0; i < pathings.length; i++) {
+		PossiblePathing pathing = pathings.pathings[i];
+
+		bool at_starting_coordinate = coordinates_equal(current_coordinate, pathing.starting_coordinate);
+
+		bool created_command = false;
+
+		// Set Initial poisition
+		if (!at_starting_coordinate) {
+			created_command = calculate_scara_ik(
+				pathing.starting_coordinate.x_pos, pathing.starting_coordinate.y_pos,
+				&angle_0, &angle_1, current_hand
+			);
+			if (!created_command) {
+				current_hand = opposite_hand(current_hand);
+				created_command = calculate_scara_ik(
+					pathing.starting_coordinate.x_pos, pathing.starting_coordinate.y_pos,
+					&angle_0, &angle_1, current_hand
+				);
+			}
+			if (created_command) {
+				add_command(&commands, pen_up());
+				add_command(&commands, rotate_joint(angle_0, angle_1));
+				add_command(&commands, pen_down());
+				current_coordinate = pathing.starting_coordinate;
+			}
+
+		}
+
+
+		created_command = calculate_scara_ik(
+			pathing.ending_coordinate.x_pos, pathing.ending_coordinate.y_pos,
+			&angle_0, &angle_1, current_hand
+		);
+		if (created_command) {
+			add_command(&commands, rotate_joint(angle_0, angle_1));
+			current_coordinate = pathing.ending_coordinate;
+		} else {
+			printf("Falied to move to coordinate\n");
+		}
+
+	}
+	output.commands = commands;
+	return output;
 }

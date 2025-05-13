@@ -1,6 +1,8 @@
 #ifndef COORDINATES_H
 #define COORDINATES_H
 
+#include <stdbool.h>
+
 typedef enum Quadrant {
 	Q1,
 	Q2,
@@ -25,7 +27,7 @@ Quadrant which_quadrant(Coordinate);
 Coordinate new_coordinate(float, float);
 Coordinate x_intercept(Coordinate, Coordinate);
 Coordinate y_intercept(Coordinate, Coordinate);
-
+bool coordinates_equal(Coordinate, Coordinate);
 
 #endif
 

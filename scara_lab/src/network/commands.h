@@ -18,9 +18,13 @@ typedef struct Command {
 } Command;
 
 typedef struct Commands {
+	int capacity;
 	int length;
 	Command* commands;
 } Commands;
+
+void add_command(Commands*, Command);
+Commands new_commands();
 
 // Pen Commands
 Command pen_up();

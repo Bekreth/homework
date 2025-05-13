@@ -5,6 +5,27 @@
 
 const char* motor_speed_strings[] = { "HIGH", "MEDIUM", "LOW" };
 
+void add_command(Commands* commands, Command command) {
+	if (commands->length == commands->capacity) {
+		commands->capacity += 5; 
+		commands->commands = realloc(
+			commands->commands,
+			sizeof(Command) * commands->capacity
+		);
+	}
+	commands->commands[commands->length] = command;
+	commands->length += 1; 
+}
+
+Commands new_commands() {
+	Commands output = {
+		.length = 0,
+		.capacity = 5,
+		.commands = malloc(sizeof(Command) * 5)
+	};
+	return output;
+}
+
 // Pen Commands
 Command pen_up() {
 	Command output = {

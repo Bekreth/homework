@@ -1,3 +1,5 @@
+#include <stdlib.h>
+
 #include "user_interface.h"
 #include "network.h"
 #include "state_intent.h"

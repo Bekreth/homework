@@ -10,28 +10,33 @@ PossiblePathings one_quadrant_pathing(Coordinates);
 PossiblePathings multi_quadrant_pathing(Coordinates);
 PossiblePathings critical_quadrant_pathing(Coordinates);
 
-Coordinates divide_path(Coordinate starting_position, Coordinate ending_position, int intermediate_points) {
+Coordinates divide_path(
+	Coordinate starting_position, 
+	Coordinate ending_position,
+	int intermediate_points
+) {
+	int length = intermediate_points + 2;
 	float delta_x = ending_position.x_pos - starting_position.x_pos;
 	float delta_y = ending_position.y_pos - starting_position.y_pos;
 
-	float offset_x = delta_x / (intermediate_points + 2);
-	float offset_y = delta_y / (intermediate_points + 2);
+	float offset_x = delta_x / (intermediate_points + 1);
+	float offset_y = delta_y / (intermediate_points + 1);
 
-	Coordinate* targets = malloc(sizeof(Coordinate) * (intermediate_points + 2));
+	Coordinate* targets = malloc(sizeof(Coordinate) * length);
 
-	for (int i = 0; i < intermediate_points + 2; i++) {
+	for (int i = 0; i < length; i++) {
 		targets[i].x_pos = starting_position.x_pos + offset_x * i;
  		targets[i].y_pos = starting_position.y_pos + offset_y * i;
 	}
 	Coordinates output = {
-		.length = intermediate_points + 2,
+		.length = length,
 		.coordinates = targets
 	};
 	return output;
 }
 
 PossiblePathings create_possible_paths(Coordinates coordinates) {
-	int length = coordinates.length + 1;
+	int length = coordinates.length - 1;
 	PossiblePathing* pathings = malloc(sizeof(PossiblePathing) * length);
 	float dead_point_0 = 0.0;
 	float dead_point_1 = 0.0;

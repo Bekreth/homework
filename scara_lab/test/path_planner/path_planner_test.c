@@ -28,7 +28,7 @@ void path_divider_test(void **state) {
 		.y_pos = 22.0,
 	};
 
-	Coordinates actual_coordinates = divide_path(starting_point, ending_point, 8);
+	Coordinates actual_coordinates = divide_path(starting_point, ending_point, 9);
 	
 	Coordinate expected_coordinates[10] = {
 		starting_point,

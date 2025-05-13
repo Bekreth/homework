@@ -29,7 +29,7 @@ void create_connection() {
 void send_commands(Commands commands) {
 	for (int i = 0; i < commands.length; i++) {
 		//TODO: Who cares about errors anyway!
-		printf(commands.commands[i].text);
+		//printf(commands.commands[i].text);
 		int error_code = write(socket_file_descriptor, commands.commands[i].text, commands.commands[i].length);
 	}
 }

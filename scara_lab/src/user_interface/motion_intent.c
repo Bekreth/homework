@@ -31,13 +31,9 @@ Intent process_move_j(Tokens* tokens, Handedness current_hand) {
 		calculate_scara_ik(x_pos, y_pos, &angle_0, &angle_1, current_hand) ||
 		calculate_scara_ik(x_pos, y_pos, &angle_0, &angle_1, opposite_hand(current_hand))
 	) {
-		Command* move_command = malloc(sizeof(Command));
-		move_command[0] = rotate_joint(angle_0, angle_1);
-		Commands out_commands = {
-			.length = 1,
-			.commands = move_command
-		};
-		output.commands = out_commands;
+		Commands commands = new_commands();
+		add_command(&commands, rotate_joint(angle_0, angle_1));
+		output.commands = commands;
 	} else {
 		output.error = out_of_range();
 	}
@@ -123,9 +119,8 @@ Intent process_move_l(Tokens* tokens, Handedness current_hand) {
 			add_command(&commands, rotate_joint(angle_0, angle_1));
 			current_coordinate = pathing.ending_coordinate;
 		} else {
-			printf("Falied to move to coordinate\n");
+			// NOOP : Falied to move to coordinate\n
 		}
-
 	}
 	output.commands = commands;
 	return output;

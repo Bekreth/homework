@@ -11,12 +11,8 @@ Intent process_pen_up(Tokens* tokens) {
 		output.error = bad_argument_count();
 		return output;
 	}
-	Command* pen_commands = malloc(sizeof(Command));
-	pen_commands[0] = pen_up();
-	Commands commands = {
-		.length = 1,
-		.commands = pen_commands
-	};
+	Commands commands = new_commands();
+	add_command(&commands, pen_up());
 	output.commands = commands;
 	return output;
 }
@@ -27,12 +23,8 @@ Intent process_pen_down(Tokens* tokens) {
 		output.error = bad_argument_count();
 		return output;
 	}
-	Command* pen_commands = malloc(sizeof(Command));
-	pen_commands[0] = pen_down();
-	Commands commands = {
-		.length = 1,
-		.commands = pen_commands
-	};
+	Commands commands = new_commands();
+	add_command(&commands, pen_down());
 	output.commands = commands;
 	return output;
 }
@@ -53,12 +45,8 @@ Intent process_pen_color(Tokens* tokens) {
 	uint8_t green = (uint8_t) atoi(tokens->tokens[2]);
 	uint8_t blue = (uint8_t) atoi(tokens->tokens[3]);
 
-	Command* pen_color_command = malloc(sizeof(Command));
-	pen_color_command[0] = pen_color(red, green, blue);
-	Commands commands = {
-		.length = 1,
-		.commands = pen_color_command
-	};
+	Commands commands = new_commands();
+	add_command(&commands, pen_color(red, green, blue));
 	output.commands = commands;
 	return output;
 }
@@ -69,29 +57,25 @@ Intent process_speed(Tokens* tokens) {
 		output.error = bad_argument_count();
 		return output;
 	}
-	Command* motor_command = malloc(sizeof(Command));
+	Commands commands = new_commands();
 	switch (tokens->tokens[1][0]) {
 		case 'h':
 		case 'H':
 			// TODO:
-			motor_command[0] = set_motor_speed(High);
+			add_command(&commands, set_motor_speed(High));
 			break;
 		case 'm':
 		case 'M':
-			motor_command[0] = set_motor_speed(Medium);
+			add_command(&commands, set_motor_speed(Medium));
 			break;
 		case 'l':
 		case 'L':
-			motor_command[0] = set_motor_speed(Low);
+			add_command(&commands, set_motor_speed(Low));
 			break;
 		default:
 			output.error = invalid_motor_speed();
 			break;
 	}
-	Commands commands = {
-		.length = 1,
-		.commands = motor_command
-	};
 	output.commands = commands;
 	return output;
 }

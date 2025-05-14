@@ -46,7 +46,7 @@ Command pen_down() {
 const char* PEN_COLOR_FORMAT = "PEN_COLOR %3u %3u %3u\n";
 Command pen_color(uint8_t red, uint8_t green, uint8_t blue) {
 	int length = 22;
-	char* text = malloc(sizeof(char) * length);
+	char* text = malloc(sizeof(char) * (length+1));
 	sprintf(text, PEN_COLOR_FORMAT, red, green, blue);
 	Command output = {
 		.text = text,

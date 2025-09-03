@@ -36,4 +36,20 @@ int main()
 
     //Walking ones
     walkingOnesDemo();
+
+    printf("bitWiseEx1.\n");
+		bitWiseEx1();
+
+    printf("bitWiseEx2.\n");
+		bitWiseEx2();
+
+    printf("bitWiseEx3.\n");
+		uint8_t test_array[5] = {
+			0xAA,
+			0xBB,
+			0xCC,
+			0xDD,
+			0xFF
+		};
+		bitWiseEx3(&test_array, 5);
 }

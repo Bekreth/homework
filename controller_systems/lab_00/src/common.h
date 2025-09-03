@@ -20,6 +20,6 @@ void walkingOnesDemo();
 
 void bitWiseEx1();
 void bitWiseEx2();
-void bitWiseEx3();
+void bitWiseEx3(uint8_t*, uint8_t);
 
 #endif

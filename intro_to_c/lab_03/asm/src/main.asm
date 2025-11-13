@@ -1,5 +1,5 @@
 .global _start
-.section .text
+.text
 _start:
 
 	call get_user_input
@@ -14,3 +14,6 @@ _start:
 
 	mov $60, %rax
 	syscall
+
+.data
+	.byte 0xAA

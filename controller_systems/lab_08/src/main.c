@@ -6,14 +6,8 @@ int main() {
 
 	init_encoder();
 
-	P1DIR |= BIT0;
-	P1OUT &= BIT0;
-	unsigned int i = 1;
 	while(i) {
-		P1OUT ^= BIT0;
-		__delay_cycles(50L);
-		//for (int j = 0; j < 10; j++) {
-		//}
+		update_encoder_state();
 	}
 	return 0;
 }
